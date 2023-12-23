@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../style/index.css'
-
+import Navbar from './Navigation'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import AllProducts from './AllProducts'
 const App = () => {
   const [pokemon, setPokemon] = useState([])
 
@@ -19,6 +21,13 @@ const App = () => {
 
   return (
     <div>
+      <BrowserRouter>
+        <Navbar />
+         <Routes>
+          <Route path = "/"  element ={<AllProducts />} />
+        </Routes>
+      </BrowserRouter>
+      
       <p>Hello World</p>
       {!!pokemon.length &&
         pokemon.map((el, i) => {
