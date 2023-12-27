@@ -3,6 +3,7 @@ import '../style/index.css'
 import Navbar from './Navigation'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AllProducts from './AllProducts'
+import RegistrationForm from './Register'
 const App = () => {
   const [pokemon, setPokemon] = useState([])
 
@@ -25,6 +26,7 @@ const App = () => {
         <Navbar />
          <Routes>
           <Route path = "/"  element ={<AllProducts />} />
+          <Route path = "/register"  element ={<RegistrationForm />} />
         </Routes>
       </BrowserRouter>
       
