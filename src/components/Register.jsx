@@ -8,6 +8,8 @@ const RegistrationForm = () => {
     password: '',
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -17,7 +19,7 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     try {
-     const response = await fetch('https://fakestoreapi.com/users', {
+      const response = await fetch('https://fakestoreapi.com/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,33 +29,32 @@ const RegistrationForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Account Created!:', responseData);
+        console.log('Account Created!', responseData);
+
+        // Now you have user information in responseData
       } else {
-        console.log (response);
         const msg = await response.json();
-        console.log(msg);
         console.error('Registration failed:', response.statusText);
-        
+        setErrorMessage(msg.message || 'Registration failed');
       }
     } catch (error) {
-      console.log (err);
       console.error('Registration failed:', error.message);
-      
+      setErrorMessage('Registration failed. Please try again.');
     }
   };
 
-  
-  return ( <div>
-  <h2>Create an Account</h2>
-    <form onSubmit={handleSubmit}>
-    <label> First Name:
-        <input
-          type="text"
-          name="firstname"
-          value={formData.firstname}
-          onChange={handleChange}
-          />
-      </label>
+  return (
+    <div>
+      <h2>Create an Account</h2>
+      <form onSubmit={handleSubmit}>
+           <label> First Name:
+            <input
+              type="text"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+            />
+           </label>
       <br />
       
       <label> Last Name:
@@ -86,9 +87,9 @@ const RegistrationForm = () => {
           />
         </label>
         <br />
-
         <button type="submit">Register</button>
       </form>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 };
