@@ -21,9 +21,12 @@ const LoginForm = ({setToken}) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
       });
-
+      
       if (response.ok) {
         const responseData = await response.json();
         console.log('Login Successful!:', responseData);
@@ -32,7 +35,7 @@ const LoginForm = ({setToken}) => {
         alert('Login Successful!');
     } else {
         console.error('Login failed:', response.statusText);
-        alert('Login Failed. Reset your password?');
+        alert('Login Failed. Enter valid Username and Password');
     }
     } catch (error) {
       console.error('Login failed:', error.message);
@@ -44,11 +47,11 @@ const LoginForm = ({setToken}) => {
       <h2>Login to an Existing Account</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Email:
+          Username:
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="text"
+            value={formData.username}
             onChange={handleChange}
           />
         </label>

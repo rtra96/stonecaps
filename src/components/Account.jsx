@@ -13,10 +13,9 @@ const Account = ({token}) => {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await fetch('https://fakestoreapi.com/users/1', {
+      const response = await fetch('https://fakestoreapi.com/users/2', {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the user token in the request headers
-          
+          Authorization: `Bearer ${token}`,
         },
       });
 

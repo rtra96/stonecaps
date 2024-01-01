@@ -4,6 +4,7 @@ const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -30,6 +31,8 @@ const RegistrationForm = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Account Created!', responseData);
+        alert("Account Created Successfully");
+
 
         // Now you have user information in responseData
       } else {
@@ -40,6 +43,7 @@ const RegistrationForm = () => {
     } catch (error) {
       console.error('Registration failed:', error.message);
       setErrorMessage('Registration failed. Please try again.');
+      alert ('Account creation failed. Please check your provided info.')
     }
   };
 
@@ -67,7 +71,16 @@ const RegistrationForm = () => {
       </label>
       <br />
       
-      
+      <label> Username:
+        <input
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          />
+      </label>
+      <br />      
+
       <label> Email:
         <input
           type="email"
