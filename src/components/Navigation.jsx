@@ -11,6 +11,7 @@ function Navbar (){
         <button><Link to = "/login">Login to an Existing Account</Link></button>
         <button><Link to = "/account">My Account</Link></button>
         <button><Link to = "/checkout">Checkout</Link></button>
+        <button><Link to = "/logout">Sign out</Link></button>
         
     </nav>
   </div>

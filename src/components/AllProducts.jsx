@@ -31,7 +31,7 @@ export default function AllProducts() {
             <h3>{product.title}</h3>
             <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
             <p>Price: ${product.price}</p>
-            <p>Description{product.description}</p>
+            <p>Description: {product.description}</p>
             <p>Category: {product.category}</p>
           </div>
         ))}

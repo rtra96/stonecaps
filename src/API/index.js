@@ -15,3 +15,4 @@ export const fetchProducts = async () => {
     throw err;
   }
 };
+
