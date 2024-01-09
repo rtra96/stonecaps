@@ -12,9 +12,7 @@ const App = () => {
   const [token, setToken] = useState(null);
 
   const handleLogout = () => {
-    // Clear the token from state
     setToken(null);
-    // You may also want to perform additional logout actions here, like redirecting the user
   };
   return (
     <div>
@@ -23,7 +21,7 @@ const App = () => {
          <Routes>
           <Route path = "/"  element ={<AllProducts />} />
           <Route path = "/register"  element ={<RegistrationForm />} />
-          <Route path = "/login"  element ={<LoginForm />} />
+          <Route path = "/login"  element ={<LoginForm setToken={setToken}/>} />
           <Route path = "/account"  element ={<Account />} />
           <Route path = "/logout" element ={<Loggedout />} />
         </Routes>

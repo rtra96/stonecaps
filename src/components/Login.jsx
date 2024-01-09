@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-
-const LoginForm = ({setToken}) => {
+const LoginForm = ({ setToken }) => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
 
@@ -26,17 +25,21 @@ const LoginForm = ({setToken}) => {
           password: formData.password,
         }),
       });
-      
+
+      const json = await response.json();
+      console.log('Raw Response:', response);
+      console.log(json);
+
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Login Successful!:', responseData);
-        const userToken = responseData.token; setToken(userToken);
+        console.log('Login Successful!:', json);
+        const userToken = json.token;
+        setToken(userToken);
         console.log(userToken);
         alert('Login Successful!');
-    } else {
+      } else {
         console.error('Login failed:', response.statusText);
         alert('Login Failed. Enter valid Username and Password');
-    }
+      }
     } catch (error) {
       console.error('Login failed:', error.message);
     }
@@ -50,7 +53,7 @@ const LoginForm = ({setToken}) => {
           Username:
           <input
             type="text"
-            name="text"
+            name="username"
             value={formData.username}
             onChange={handleChange}
           />

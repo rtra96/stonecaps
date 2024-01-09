@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import userToken from './Login';
 
-
-const Account = ({token}) => {
+const Account = ({ token }) => {
   const [userInfo, setUserInfo] = useState(null);
-  
 
   useEffect(() => {
     fetchUserInfo();
-
-  }, []);
+  }, [token]);
 
   const fetchUserInfo = async () => {
+    if (!token) {
+      // Handle the case where no token is available (user not logged in)
+      return;
+    }
+
     try {
-      const response = await fetch('https://fakestoreapi.com/users/2', {
+      // Decode the token to extract user information
+      const decodedToken = decodeToken(token);
+
+      // Fetch user details using the user id from the decoded token
+      const response = await fetch(`https://fakestoreapi.com/users/${decodedToken.userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,6 +35,13 @@ const Account = ({token}) => {
     }
   };
 
+  const decodeToken = (token) => {
+    // Decode the token payload
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    return JSON.parse(decodedPayload);
+  };
+
   return (
     <div className='account'>
       <h2>User Account Information</h2>
@@ -41,13 +53,10 @@ const Account = ({token}) => {
           <p>Email: {userInfo.email}</p>
         </div>
       ) : (
-        <p>Log in or Create and Account</p>
+        <p>Log in or Create an Account</p>
       )}
     </div>
-   
-);
+  );
 };
-
-
 
 export default Account;
