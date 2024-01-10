@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { useCart } from "./CartContext";
 
 function Navbar({ token, onLogout }) {
+  const { cartItems } = useCart();
   return (
     <div>
       <nav>
@@ -15,7 +17,7 @@ function Navbar({ token, onLogout }) {
             <button onClick={onLogout}>Sign out</button>
           </>
         )}
-        <button><Link to="/checkout">Checkout</Link></button>
+        <button><Link to="/cart">Checkout ({cartItems.length})</Link></button>
       </nav>
     </div>
   );

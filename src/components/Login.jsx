@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ setToken, setLoggedInUser }) => {
+const LoginForm = ({ setToken, onLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -45,7 +45,7 @@ const LoginForm = ({ setToken, setLoggedInUser }) => {
         };
 
         // Store the logged-in user in the state
-        setLoggedInUser(loggedInUser);
+        onLogin(loggedInUser);
 
         alert('Login Successful!');
       } else {
