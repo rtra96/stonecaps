@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchProducts } from "../API";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
@@ -31,8 +32,7 @@ export default function AllProducts() {
             <h3>{product.title}</h3>
             <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
             <p>Price: ${product.price}</p>
-            <p>Description: {product.description}</p>
-            <p>Category: {product.category}</p>
+            <Link to={`/products/${product.id}`}><button>See Details</button></Link>
           </div>
         ))}
       </div>
