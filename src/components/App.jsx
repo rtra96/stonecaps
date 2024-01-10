@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import '../style/index.css'
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './Navigation';
+import AllProducts from './AllProducts';
+import RegistrationForm from './Register';
+import LoginForm from './Login';
+import Account from './Account';
+import Loggedout from './Loggedout';
 
 const App = () => {
-  const [pokemon, setPokemon] = useState([])
+  const [token, setToken] = useState(null);
 
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
-        const { results } = await response.json()
-        setPokemon(results)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    getAllData()
-  }, [])
+  const handleLogout = () => {
+    setToken(null);
+  };
 
   return (
     <div>
-      <p>Hello World</p>
-      {!!pokemon.length &&
-        pokemon.map((el, i) => {
-          return (
-            <div key={i}>
-              <h1>{el.name}</h1>
-            </div>
-          )
-        })}
+      <BrowserRouter>
+        <Navbar token={token} onLogout={handleLogout} />
+        <Routes>
+          <Route path="/" element={<AllProducts />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/login" element={<LoginForm setToken={setToken} />} />
+          <Route path="/account" element={<Account token={token} />} />
+          <Route path="/logout" element={<Loggedout />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
