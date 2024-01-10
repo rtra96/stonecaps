@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ setToken }) => {
+const LoginForm = ({ setToken, setLoggedInUser }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -27,14 +27,26 @@ const LoginForm = ({ setToken }) => {
       });
 
       const json = await response.json();
-      console.log('Raw Response:', response);
-      console.log(json);
 
       if (response.ok) {
         console.log('Login Successful!:', json);
         const userToken = json.token;
+
+        // Store the token in the state
         setToken(userToken);
-        console.log(userToken);
+
+        // Use the user information directly from the login response
+        const loggedInUser = {
+          id: json.userId,
+          username: formData.username,
+          name: json.name,
+          email: json.email,
+          phone: json.phone,
+        };
+
+        // Store the logged-in user in the state
+        setLoggedInUser(loggedInUser);
+
         alert('Login Successful!');
       } else {
         console.error('Login failed:', response.statusText);
