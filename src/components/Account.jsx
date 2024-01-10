@@ -1,41 +1,57 @@
+// Account.jsx
 import React, { useEffect, useState } from 'react';
 
 const Account = ({ token }) => {
-  const [userInfo, setUserInfo] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
-    fetchUserInfo();
+    fetchUserDetails();
   }, [token]);
 
-  const fetchUserInfo = async () => {
-    try {
-      const response = await fetch('https://fakestoreapi.com/users/2', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const fetchUserDetails = async () => {
+    if (token) {
+      try {
+        // Decode the token to get user information
+        const tokenData = parseJwt(token);
+        
+        // Fetch user details using the obtained user ID from the token
+        const response = await fetch(`https://fakestoreapi.com/users/${tokenData.sub}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      if (response.ok) {
-        const userData = await response.json();
-        setUserInfo(userData);
-      } else {
-        console.error('Failed to fetch user information:', response.statusText);
+        if (response.ok) {
+          const userData = await response.json();
+          setLoggedInUser(userData);
+        } else {
+          console.error('Failed to fetch user information:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching user information:', error.message);
       }
-    } catch (error) {
-      console.error('Error fetching user information:', error.message);
+    }
+  };
+
+  // Helper function to decode JWT token
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
     }
   };
 
   return (
     <div className='account'>
       <h2>User Account Information</h2>
-      {userInfo ? (
+      {loggedInUser ? (
         <div>
           <p>
-            Name: {userInfo.name.firstname} {userInfo.name.lastname}
+            Name: {loggedInUser.name.firstname} {loggedInUser.name.lastname}
           </p>
-          <p>Email: {userInfo.email}</p>
-          <p>Phone: {userInfo.phone}</p>
+          <p>Email: {loggedInUser.email}</p>
+          <p>Phone: {loggedInUser.phone}</p>
         </div>
       ) : (
         <p>Log in or Create an Account</p>

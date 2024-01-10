@@ -11,6 +11,7 @@ import SingleProduct from './SingleProduct'
 
 const App = () => {
   const [token, setToken] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const handleLogout = () => {
     setToken(null);
@@ -19,14 +20,15 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Navbar />
-         <Routes>
-          <Route path = "/"  element ={<AllProducts />} />
-          <Route path = "/register"  element ={<RegistrationForm />} />
-          <Route path = "/login"  element ={<LoginForm setToken={setToken}/>} />
-          <Route path = "/account"  element ={<Account />} />
-          <Route path = "/logout" element ={<Loggedout />} />
+        <Routes>
+          <Route path="/" element={<AllProducts />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/login" element={<LoginForm setToken={setToken} setLoggedInUser={setLoggedInUser} />}/>
+          <Route path="/account" element={<Account token={token} loggedInUser={loggedInUser} />} />
+          <Route path="/logout" element={<Loggedout />} />
           <Route path="/products/:id" element={<SingleProduct />} />
         </Routes>
+
       </BrowserRouter>
     </div>
   )
