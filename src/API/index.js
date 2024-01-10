@@ -16,3 +16,12 @@ export const fetchProducts = async () => {
   }
 };
 
+export const fetchProductById = async (productId) => {
+  try {
+    const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
+    const productDetails = await response.json();
+    return productDetails;
+  } catch (error) {
+    throw new Error('Error fetching product details by ID');
+  }
+};

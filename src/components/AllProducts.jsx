@@ -22,6 +22,10 @@ export default function AllProducts() {
     getProducts();
   }, []);
 
+  const handleSeeDetails = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div>
       <h2>All Products</h2>
@@ -30,9 +34,8 @@ export default function AllProducts() {
           <div key={product.id}>
             <h3>{product.title}</h3>
             <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
-            <p>Price: ${product.price}</p>
-            <p>Description: {product.description}</p>
-            <p>Category: {product.category}</p>
+            <br />
+            <button onClick={() => handleSeeDetails(product.id)}>See Details</button>
           </div>
         ))}
       </div>
