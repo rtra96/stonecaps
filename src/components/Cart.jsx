@@ -2,7 +2,11 @@ import React from 'react';
 import { useCart } from './CartContext';
 
 const Cart = () => {
-  const { cartItems, removeFromCart, clearCart } = useCart();
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    updateQuantity(itemId, newQuantity);
+  };
 
   return (
     <div>
@@ -13,14 +17,24 @@ const Cart = () => {
         <div>
           {cartItems.map((item) => (
             <div key={item.id}>
-              <img src="{item.image}" />
+              <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }}/>
               <p>{item.title}</p>
               <p>Price: ${item.price}</p>
+              <div>
+                <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
+                  +
+                </button>
+              </div>
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </div>
           ))}
           <br />
           <button onClick={clearCart}>Clear Cart</button>
+          <button>Checkout</button>
         </div>
       )}
     </div>

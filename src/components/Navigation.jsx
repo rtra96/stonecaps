@@ -4,6 +4,7 @@ import { useCart } from "./CartContext";
 
 function Navbar({ token, onLogout }) {
   const { cartItems } = useCart();
+  
   return (
     <div>
       <nav>
