@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from './CartContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();
@@ -7,6 +8,8 @@ const Cart = () => {
   const handleQuantityChange = (itemId, newQuantity) => {
     updateQuantity(itemId, newQuantity);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -17,7 +20,7 @@ const Cart = () => {
         <div>
           {cartItems.map((item) => (
             <div key={item.id}>
-              <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }}/>
+              <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }} />
               <p>{item.title}</p>
               <p>Price: ${item.price}</p>
               <div>
@@ -34,7 +37,7 @@ const Cart = () => {
           ))}
           <br />
           <button onClick={clearCart}>Clear Cart</button>
-          <button>Checkout</button>
+          <button onClick={() => navigate('/checkout')}>Checkout</button>
         </div>
       )}
     </div>

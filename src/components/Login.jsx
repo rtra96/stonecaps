@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from './Auth';
+
+// Decode JWT token
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
 
 const LoginForm = ({ setToken, onLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,6 +28,8 @@ const LoginForm = ({ setToken, onLogin }) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const response = await fetch('https://fakestoreapi.com/auth/login', {
         method: 'POST',
         headers: {
@@ -32,7 +47,11 @@ const LoginForm = ({ setToken, onLogin }) => {
         console.log('Login Successful!:', json);
         const userToken = json.token;
 
-        // Store the token in the state
+        // Decode the token to get user information
+        const decodedToken = parseJwt(userToken);
+        console.log('Decoded Token:', decodedToken);
+
+        // Set the token first
         setToken(userToken);
 
         // Use the user information directly from the login response
@@ -44,26 +63,32 @@ const LoginForm = ({ setToken, onLogin }) => {
           phone: json.phone,
         };
 
-        // Store the logged-in user in the state
-        onLogin(loggedInUser);
+        // Use a setTimeout to simulate an asynchronous update
+        setTimeout(() => {
+          // Then, set the user in the context
+          login(loggedInUser);
 
-        alert('Login Successful!');
+          // Additional logic or alerts if needed
+          alert('Login Successful!');
+        }, 0);
       } else {
         console.error('Login failed:', response.statusText);
-        alert('Login Failed. Enter valid Username and Password');
+        alert('Login Failed. Enter a valid Username and Password.');
       }
     } catch (error) {
       console.error('Login failed:', error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <h2>Login to an Existing Account</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
+       <h2>Login to an Existing Account</h2>
+       <form onSubmit={handleSubmit}>
+         <label>
+           Username:
+           <input
             type="text"
             name="username"
             value={formData.username}
@@ -83,8 +108,10 @@ const LoginForm = ({ setToken, onLogin }) => {
         </label>
         <br />
 
-        <button type="submit">Login</button>
-      </form>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+      </form> 
     </div>
   );
 };

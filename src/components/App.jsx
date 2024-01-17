@@ -9,6 +9,8 @@ import Loggedout from './Loggedout';
 import SingleProduct from './SingleProduct';
 import { CartProvider } from './CartContext';
 import Cart from './Cart';
+import { AuthProvider } from './Auth';
+import OrderInformationForm from './OrderInfo';
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -26,21 +28,24 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <CartProvider>
-          <Navbar token={token} onLogout={handleLogout} />
-          <Routes>
-            <Route path="/" element={<AllProducts />} />
-            <Route path="/register" element={<RegistrationForm />} />
-            <Route
-              path="/login"
-              element={<LoginForm setToken={setToken} onLogin={handleLogin} />}
-            />
-            <Route path="/account" element={<Account token={token} loggedInUser={loggedInUser} />} />
-            <Route path="/logout" element={<Loggedout />} />
-            <Route path="/product/:id" element={<SingleProduct />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Navbar token={token} onLogout={handleLogout} />
+            <Routes>
+              <Route path="/" element={<AllProducts />} />
+              <Route path="/register" element={<RegistrationForm />} />
+              <Route
+                path="/login"
+                element={<LoginForm setToken={setToken} onLogin={handleLogin} />}
+              />
+              <Route path="/account" element={<Account token={token} loggedInUser={loggedInUser} />} />
+              <Route path="/logout" element={<Loggedout />} />
+              <Route path="/product/:id" element={<SingleProduct />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<OrderInformationForm />} />
+            </Routes>
+          </CartProvider>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );

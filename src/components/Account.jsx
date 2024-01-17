@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 
 const Account = ({ token }) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (token === null)
-      {
-        setLoggedInUser(null);
-        return
-      }
+    if (token === null) {
+      setLoggedInUser(null);
+      setLoading(false);
+      return;
+    }
+
     fetchUserDetails();
   }, [token]);
-
 
   const fetchUserDetails = async () => {
     if (token) {
       try {
-        // Decode the token to get user information
         const tokenData = parseJwt(token);
-        
-        // Fetch user details using the obtained user ID from the token
         const response = await fetch(`https://fakestoreapi.com/users/${tokenData.sub}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -31,14 +30,17 @@ const Account = ({ token }) => {
           setLoggedInUser(userData);
         } else {
           console.error('Failed to fetch user information:', response.statusText);
+          setError('Failed to fetch user information. Please try again.');
         }
       } catch (error) {
         console.error('Error fetching user information:', error.message);
+        setError('An unexpected error occurred. Please try again.');
+      } finally {
+        setLoading(false);
       }
     }
   };
 
-  // Helper function to decode JWT token
   const parseJwt = (token) => {
     try {
       return JSON.parse(atob(token.split('.')[1]));
@@ -47,10 +49,16 @@ const Account = ({ token }) => {
     }
   };
 
+  if (loading) {
+    return <p>Loading user information...</p>;
+  }
+
   return (
-    <div className='account'>
+    <div className="account">
       <h2>User Account Information</h2>
-      {loggedInUser ? (
+      {error ? (
+        <p>{error}</p>
+      ) : loggedInUser ? (
         <div>
           <p>
             Name: {loggedInUser.name.firstname} {loggedInUser.name.lastname}
