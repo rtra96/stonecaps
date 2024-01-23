@@ -15,14 +15,14 @@ const OrderInformationForm = () => {
     // I may write something for this; however, I know this API doesn't actually have this functionality
     console.log('Checkout logic goes here');
   };
-
+console.log(user);
   return (
     <div>
       <h2>Order Information</h2>
       {user ? (
         // Display user information if logged in
         <div>
-          <p>Name: {user.name}</p>
+          <p>Name: {user.name.firstname}</p>
           <p>Email: {user.email}</p>
           <p>Phone: {user.phone}</p>
           {/* Add form fields for shipping, billing, and card information here */}

@@ -1,0 +1,29 @@
+.navbar-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .navbar-button {
+    background-color: #f5afaf;
+    color: #fff;
+    padding: 10px 10px;
+    border: black;
+    border-width: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navbar-button:hover {
+    background-color: #aac2db;
+    color: #fff;
+  }
+  

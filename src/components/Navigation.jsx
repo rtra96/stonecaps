@@ -1,24 +1,25 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useCart } from "./CartContext";
+import '../Nav.css';
 
 function Navbar({ token, onLogout }) {
   const { cartItems } = useCart();
   
   return (
-    <div>
-      <nav>
+    <div className="navbar-container">
+      <nav className="navbar">
         {/* navigation button routes */}
-        <button><Link to="/">All Products</Link></button>
-        <button><Link to="/register">Create an Account</Link></button>
-        <button><Link to="/login">Login to an Existing Account</Link></button>
+        <button className="navbar-button"><Link to="/">All Products</Link></button>
+        <button className="navbar-button"><Link to="/register">Create an Account</Link></button>
+        <button className="navbar-button"><Link to="/login">Login</Link></button>
         {token && (
           <>
-            <button><Link to="/account">My Account</Link></button>
-            <button onClick={onLogout}>Sign out</button>
+            <button className="navbar-button"><Link to="/account">My Account</Link></button>
+            <button className="navbar-button" onClick={onLogout}>Sign out</button>
           </>
         )}
-        <button><Link to="/cart">Checkout ({cartItems.length})</Link></button>
+        <button className="navbar-button"><Link to="/cart">Checkout ({cartItems.length})</Link></button>
       </nav>
     </div>
   );

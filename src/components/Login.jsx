@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './Auth';
-
+import '../App.css';
 // Decode JWT token
 const parseJwt = (token) => {
   try {
@@ -17,7 +17,7 @@ const LoginForm = ({ setToken, onLogin }) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,14 +54,30 @@ const LoginForm = ({ setToken, onLogin }) => {
         // Set the token first
         setToken(userToken);
 
+        //get userid from token and get userdata from API
+        const userId= decodedToken.sub;
+        let loggedInUser;
+        fetch(`https://fakestoreapi.com/users/${userId}`)
+            .then(res=>res.json())
+            .then(json=>{console.log(json); setUser(json)
+               loggedInUser = {
+                id: json.userId,
+                username: formData.username,
+                name: json.name,
+                email: json.email,
+                phone: json.phone,
+              };localStorage.setItem("userInfo",JSON.stringify(loggedInUser))})
+            
+        
         // Use the user information directly from the login response
-        const loggedInUser = {
-          id: json.userId,
-          username: formData.username,
-          name: json.name,
-          email: json.email,
-          phone: json.phone,
-        };
+         
+        // const loggedInUser = {
+        //   id: json.userId,
+        //   username: formData.username,
+        //   name: json.name,
+        //   email: json.email,
+        //   phone: json.phone,
+        // };
 
         // Use a setTimeout to simulate an asynchronous update
         setTimeout(() => {
@@ -83,9 +99,9 @@ const LoginForm = ({ setToken, onLogin }) => {
   };
 
   return (
-    <div>
-       <h2>Login to an Existing Account</h2>
-       <form onSubmit={handleSubmit}>
+    <div className="login-container">
+       <h2>Welcome Back!</h2>
+       <form onSubmit={handleSubmit} className="login-form">
          <label>
            Username:
            <input
@@ -108,7 +124,7 @@ const LoginForm = ({ setToken, onLogin }) => {
         </label>
         <br />
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading}className="login-button" >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form> 
