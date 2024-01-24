@@ -1,3 +1,6 @@
+body {
+  font-family: sans-serif;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -46,15 +49,18 @@
   max-height: 200px; 
 }
 
-/* styles.css */
-
-.login-container {
+.flavor-container {
   max-width: 400px;
   margin: 0 auto;
-  padding: 180px;
+  padding: 80px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input{
+  margin-bottom: 10px;
+
 }
 
 .login-form label {
@@ -62,7 +68,7 @@
   margin-bottom: 8px;
 }
 
-.login-form input {
+.form-input {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
@@ -70,7 +76,7 @@
   border-radius: 4px;
 }
 
-.login-button {
+.punch-button {
   background-color: #f5afaf;
   color: #fff;
   padding: 10px 15px;
@@ -82,5 +88,29 @@
 .login-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.cutie-input {
+  max-width: 50px;
+}
+
+.cart-buttons {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.linkybuttons{
+  border: black, 3px;
+  border-radius: 3em;
+
+}
+
+.linkybuttons:hover{
+  background-color: antiquewhite;
+}
+
+.nilelogo {
+  font-family: 'Courier New', Courier, monospace;
 }
 

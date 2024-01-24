@@ -25,7 +25,7 @@ console.log(user);
           <p>Name: {user.name.firstname}</p>
           <p>Email: {user.email}</p>
           <p>Phone: {user.phone}</p>
-          {/* Add form fields for shipping, billing, and card information here */}
+          
           <button onClick={handleCheckout}>Place Order</button>
         </div>
       ) : (

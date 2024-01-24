@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './Auth';
+import { useNavigate } from 'react-router-dom'; 
 import '../App.css';
+
 // Decode JWT token
 const parseJwt = (token) => {
   try {
@@ -17,7 +19,9 @@ const LoginForm = ({ setToken, onLogin }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false); 
   const { login, setUser } = useAuth();
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,46 +50,44 @@ const LoginForm = ({ setToken, onLogin }) => {
       if (response.ok) {
         console.log('Login Successful!:', json);
         const userToken = json.token;
+        localStorage.setItem("token", userToken);
 
         // Decode the token to get user information
         const decodedToken = parseJwt(userToken);
         console.log('Decoded Token:', decodedToken);
 
-        // Set the token first
+        // Set the token 
         setToken(userToken);
 
         //get userid from token and get userdata from API
-        const userId= decodedToken.sub;
+        const userId = decodedToken.sub;
         let loggedInUser;
         fetch(`https://fakestoreapi.com/users/${userId}`)
-            .then(res=>res.json())
-            .then(json=>{console.log(json); setUser(json)
-               loggedInUser = {
-                id: json.userId,
-                username: formData.username,
-                name: json.name,
-                email: json.email,
-                phone: json.phone,
-              };localStorage.setItem("userInfo",JSON.stringify(loggedInUser))})
-            
-        
-        // Use the user information directly from the login response
-         
-        // const loggedInUser = {
-        //   id: json.userId,
-        //   username: formData.username,
-        //   name: json.name,
-        //   email: json.email,
-        //   phone: json.phone,
-        // };
+          .then(res => res.json())
+          .then(json => {
+            console.log(json);
+            setUser(json);
+            loggedInUser = {
+              id: json.userId,
+              username: formData.username,
+              name: json.name,
+              email: json.email,
+              phone: json.phone,
+            };
+            localStorage.setItem("userInfo", JSON.stringify(loggedInUser));
+          });
 
-        // Use a setTimeout to simulate an asynchronous update
-        setTimeout(() => {
-          // Then, set the user in the context
+          // Use a setTimeout to simulate an asynchronous update
+          setTimeout(() => {
+          
+            // Then, set the user in the context
           login(loggedInUser);
 
           // Additional logic or alerts if needed
           alert('Login Successful!');
+
+          // Update the state to trigger redirection
+          setRedirect(true);
         }, 0);
       } else {
         console.error('Login failed:', response.statusText);
@@ -98,36 +100,43 @@ const LoginForm = ({ setToken, onLogin }) => {
     }
   };
 
+  // Redirect to home component if redirect state is true
+  useEffect(() => {
+    if (redirect) {
+      navigate('/'); // Redirect to home component
+    }
+  }, [redirect, navigate]);
+
   return (
-    <div className="login-container">
-       <h2>Welcome Back!</h2>
+    <div className="flavor-container">
+      <h2>Welcome Back!</h2>
        <form onSubmit={handleSubmit} className="login-form">
+          <label>
+            Username:
+            <input
+             type="text"
+             name="username"
+             value={formData.username}
+             onChange={handleChange}
+           />
+         </label>
+         <br />
+
          <label>
-           Username:
+           Password:
            <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
+             type="password"
+             name="password"
+             value={formData.password}
+             onChange={handleChange}
+           />
+         </label>
+         <br />
 
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-
-        <button type="submit" disabled={loading}className="login-button" >
+         <button type="submit" disabled={loading}className="punch-button" >
           {loading ? 'Logging in...' : 'Login'}
         </button>
-      </form> 
+      </form>
     </div>
   );
 };

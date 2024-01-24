@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from './Navigation';
 import AllProducts from './AllProducts';
 import RegistrationForm from './Register';
@@ -9,17 +10,24 @@ import Loggedout from './Loggedout';
 import SingleProduct from './SingleProduct';
 import { CartProvider } from './CartContext';
 import Cart from './Cart';
-import { AuthProvider } from './Auth';
+import { AuthProvider, useAuth } from './Auth';
+
 import OrderInformationForm from './OrderInfo';
 import { useEffect } from 'react';
+
+
 
 const App = () => {
   const [token, setToken] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { login, setUser } = useAuth();
 
-
+  useEffect(() => {
+    setToken(localStorage.getItem ("token"))
+  },[]);
+  
   useEffect(() => {
     if (token === null) {
       setLoggedInUser(null);
@@ -42,6 +50,8 @@ const App = () => {
 
         if (response.ok) {
           const userData = await response.json();
+          login(userData);
+          setUser(userData);
           setLoggedInUser(userData);
         } else {
           console.error('Failed to fetch user information:', response.statusText);
@@ -88,8 +98,7 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <AuthProvider>
-          <CartProvider>
+        <CartProvider>
             <Navbar token={token} onLogout={handleLogout} />
             <Routes>
               <Route path="/" element={<AllProducts />} />
@@ -105,8 +114,7 @@ const App = () => {
               <Route path="/checkout" element={<OrderInformationForm />} />
             </Routes>
           </CartProvider>
-        </AuthProvider>
-      </BrowserRouter>
+       </BrowserRouter>
     </div>
   );
 };

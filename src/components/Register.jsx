@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../App.css';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -48,9 +49,9 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    <div className="flavor-container">
       <h2>Create an Account</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className = "formz">
            <label> First Name:
             <input
               type="text"
@@ -79,7 +80,7 @@ const RegistrationForm = () => {
           onChange={handleChange}
           />
       </label>
-      <br />      
+      <br />
 
       <label> Email:
         <input
@@ -100,7 +101,7 @@ const RegistrationForm = () => {
           />
         </label>
         <br />
-        <button type="submit">Register</button>
+        <button type="submit" className ="punch-button">Register</button>
       </form>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
