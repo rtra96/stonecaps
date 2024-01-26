@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from './Navigation';
@@ -8,14 +8,10 @@ import LoginForm from './Login';
 import Account from './Account';
 import Loggedout from './Loggedout';
 import SingleProduct from './SingleProduct';
-import { CartProvider } from './CartContext';
-import Cart from './Cart';
 import { AuthProvider, useAuth } from './Auth';
-
+import CartProvider  from './CartContext';
+import Cart from './Cart';
 import OrderInformationForm from './OrderInfo';
-import { useEffect } from 'react';
-
-
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -25,9 +21,13 @@ const App = () => {
   const { login, setUser } = useAuth();
 
   useEffect(() => {
-    setToken(localStorage.getItem ("token"))
-  },[]);
-  
+    const storedToken = localStorage.getItem('token');
+
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
   useEffect(() => {
     if (token === null) {
       setLoggedInUser(null);
@@ -95,11 +95,13 @@ const App = () => {
     alert('Login Successful!');
   };
   
+
   return (
-    <div>
-      <BrowserRouter>
-        <CartProvider>
-            <Navbar token={token} onLogout={handleLogout} />
+    <CartProvider>
+      <AuthProvider>
+        <BrowserRouter>
+        <div>
+        <Navbar token={token} onLogout={handleLogout} />
             <Routes>
               <Route path="/" element={<AllProducts />} />
               <Route path="/register" element={<RegistrationForm />} />
@@ -113,9 +115,10 @@ const App = () => {
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<OrderInformationForm />} />
             </Routes>
-          </CartProvider>
-       </BrowserRouter>
-    </div>
+            </div>  
+        </BrowserRouter>
+      </AuthProvider>
+    </CartProvider>
   );
 };
 

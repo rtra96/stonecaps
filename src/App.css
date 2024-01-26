@@ -1,6 +1,9 @@
+
 body {
   font-family: sans-serif;
+  background-color: rgb(198, 199, 223);
 }
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -14,9 +17,11 @@ body {
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -45,8 +50,11 @@ body {
 }
 
 .productimg {
-  max-width: 200px; 
-  max-height: 200px; 
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 3px;
+  border: solid black 2px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .flavor-container {
@@ -58,9 +66,8 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input{
+input {
   margin-bottom: 10px;
-
 }
 
 .login-form label {
@@ -97,16 +104,19 @@ input{
 .cart-buttons {
   display: flex;
   justify-content: center;
- 
 }
 
-.linkybuttons{
-  border: black, 3px;
+.cart-item {
+  margin-top: 20px;
+}
+
+.linkybuttons {
+  color: black;
   border-radius: 3em;
-
+  ;
 }
 
-.linkybuttons:hover{
+.linkybuttons:hover {
   background-color: antiquewhite;
 }
 
@@ -114,3 +124,83 @@ input{
   font-family: 'Courier New', Courier, monospace;
 }
 
+.order-summary-card {
+  border: 1px solid #f0cccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  grid-column: initial; /* Reset grid-column to default value */
+}
+
+.order-summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.order-summary-item span:first-child {
+  font-weight: bold;
+}
+
+.order-information-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.order-information-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.user-information,
+.shipping-destination,
+.payment-information,
+.order-review {
+  border: 1px solid #ccc;
+  padding: 15px;
+  background-color: #fff;
+
+}
+
+.order-summary {
+  border: 1px solid #ccc;
+  padding: 15px;
+  grid-column: span 2;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #daa3c5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.centered-button {
+  grid-column: span 2; 
+  text-align: center;
+}
+
+.combined-summary {
+  grid-column: span 2; 
+}
+
+.payment-information {
+  grid-column: span 2; 
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px; 
+  background-color: #fff;
+  align-content: center;
+ }
+
+ h4{
+  margin-top: 5px;
+ }

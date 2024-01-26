@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchProducts, fetchCategories, fetchData, fetchProductsByCategory } from "../API"; 
+import { fetchProducts, fetchCategories, fetchProductsByCategory } from "../API"; 
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import ScrollToTopIcon from '../images/uparrow.svg';
 
-export default function AllProducts() {
+export default function AllProducts({ resetCategoryFilter }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -15,26 +15,26 @@ export default function AllProducts() {
       try {
         const nextProducts = await fetchProducts();
         setProducts(nextProducts);
-  
+
         const categoryList = await fetchCategories();
         setCategories(categoryList);
       } catch (err) {
         console.error(err);
       }
     }
-  
+
     getProductsAndCategories();
-  
+
     const scrollToTop = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-  
+
     // Attach the click event to scroll to top
     const scrollIcon = document.getElementById('scroll-to-top-icon');
     if (scrollIcon) {
       scrollIcon.addEventListener('click', scrollToTop);
     }
-  
+
     // Cleanup event listener on component unmount
     return () => {
       if (scrollIcon) {
@@ -42,7 +42,7 @@ export default function AllProducts() {
       }
     };
   }, []);
-  
+
   const handleSeeDetails = (productId) => {
     navigate(`/product/${productId}`);
   };
@@ -80,7 +80,7 @@ export default function AllProducts() {
         </div>
         {filteredProducts.map((product) => (
           <div key={product.id}>
-            <h3>{product.title}</h3>
+            <h4>{product.title}</h4>
             <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
             <br /><br />
             <button className="linkybuttons" onClick={() => handleSeeDetails(product.id)}>See Details</button>

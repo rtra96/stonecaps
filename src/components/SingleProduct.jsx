@@ -35,7 +35,7 @@ const SingleProduct = () => {
 
   return (
     <div>
-      <h2>{product.title}</h2>
+      <h4>{product.title}</h4>
       <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
       <p>Price: ${product.price}</p>
       <p>{product.description}</p>
