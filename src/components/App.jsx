@@ -12,6 +12,7 @@ import { AuthProvider, useAuth } from './Auth';
 import CartProvider  from './CartContext';
 import Cart from './Cart';
 import OrderInformationForm from './OrderInfo';
+import Confirmation from './Confirmation';
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -114,6 +115,7 @@ const App = () => {
               <Route path="/product/:id" element={<SingleProduct />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<OrderInformationForm />} />
+              <Route path="/confirmation" element={<Confirmation />} />
             </Routes>
             </div>  
         </BrowserRouter>

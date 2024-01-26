@@ -15,13 +15,6 @@ const OrderInformationForm = () => {
   const [expirationDate, setExpirationDate] = useState("");
   const [billingZipCode, setBillingZipCode] = useState("");
 
-  // Function to handle the checkout process
-  const handleCheckout = () => {
-    // Implement checkout logic using shippingDestination, zipCode, state, city,
-    // cardNumber, expirationDate, billingZipCode
-    console.log('Checkout logic goes here');
-  };
-
   // Calculate order summary values
   const numberOfItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -159,7 +152,7 @@ const OrderInformationForm = () => {
             </div>
           </div >
           <div className="combined-summary centered-button">
-            <button onClick={handleCheckout}>Place Order</button>
+            <button><Link to ="/confirmation">Place Order</Link></button>
           </div>
         </div>
       ) : (

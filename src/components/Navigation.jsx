@@ -11,9 +11,8 @@ import { useAuth } from "./Auth";
 
 function Navigationbar({ token, onLogout, resetCategoryFilter }) {
   const { cartItems, clearCart } = useContext(CartContext);
-  const { user, logout } = useAuth(); 
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
-
 
   // Function to handle Logo click
   const handleNileLinkClick = () => {
@@ -24,30 +23,58 @@ function Navigationbar({ token, onLogout, resetCategoryFilter }) {
     navigate('/');
   };
 
+  // Function to handle dropdown item selection
+  const handleDropdownSelect = () => {
+    // Close the dropdown menu
+    document.getElementById("basic-nav-dropdown").click(); 
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand className="nilelogo" to="/" as={Link} onClick={resetCategoryFilter}>Nile.us</Navbar.Brand>
+        <Navbar.Brand className="nilelogo" to="/" as={Link} onClick={resetCategoryFilter}>
+          Nile.on
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {token ? (
               <>
                 <Nav.Link disabled>Login</Nav.Link>
-                <Nav.Link to="/cart" as={Link}>Cart</Nav.Link>
-                <NavDropdown title={`Welcome, ${user ? user.username : "user"}`} id="basic-nav-dropdown">
+                <Nav.Link to="/cart" as={Link}>
+                  Cart
+                </Nav.Link>
+                <NavDropdown
+                  title={`Welcome, ${user ? user.username : "user"}`}
+                  id="basic-nav-dropdown"
+                  onSelect={handleDropdownSelect} 
+                >
                   <NavDropdown.Item href="#action/3.1">Contact Us</NavDropdown.Item>
-                  <NavDropdown.Item to="/account" as={Link} href="#action/3.2">View Account</NavDropdown.Item>
+                  <NavDropdown.Item to="/account" as={Link} href="#action/3.2">
+                    View Account
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4" onClick={() => { clearCart(); logout(); onLogout(); localStorage.removeItem("cart"); }}>
+                  <NavDropdown.Item
+                    href="#action/3.4"
+                    onClick={() => {
+                      clearCart();
+                      logout();
+                      onLogout();
+                      localStorage.removeItem("cart");
+                    }}
+                  >
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
               </>
             ) : (
               <>
-                <Nav.Link to="/login" as={Link}>Login</Nav.Link>
-                <Nav.Link to="/cart" as={Link}>Cart</Nav.Link>
+                <Nav.Link to="/login" as={Link}>
+                  Login
+                </Nav.Link>
+                <Nav.Link to="/cart" as={Link}>
+                  Cart
+                </Nav.Link>
               </>
             )}
           </Nav>
@@ -55,5 +82,6 @@ function Navigationbar({ token, onLogout, resetCategoryFilter }) {
       </Container>
     </Navbar>
   );
-} 
-export default Navigationbar
+}
+
+export default Navigationbar;

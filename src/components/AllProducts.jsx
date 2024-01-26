@@ -68,7 +68,7 @@ export default function AllProducts({ resetCategoryFilter }) {
   return (
     <div>
       <div>
-        <div>
+        <div className="category-select">
           <label htmlFor="category">Sort by Category:</label>
           <select id="category" onChange={(e) => handleCategoryChange(e.target.value)}>
             {categories.map((category) => (

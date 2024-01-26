@@ -1,5 +1,4 @@
 import React from 'react';
-import { CartContext } from './CartContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './CartContext';
 
@@ -33,27 +32,29 @@ const Cart = () => {
           <p>Your cart is empty. Click to return home.</p>
         </Link>
       ) : (
-        <div>
-          {cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }} />
-              <p>{item.title}</p>
-              <p>Price: ${item.price}</p>
-              <div>
-                <label>quantity:</label>
-                <input
-                  className="cutie-input"
-                  type="number"
-                  min="1"
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                />
+        <div className="whole-dang-cart">
+          {/* Cart Items */}
+          <div className="cart-items">
+            {cartItems.map((item) => (
+              <div key={item.id} className="cart-item">
+                <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }} />
+                <p>{item.title}</p>
+                <p>Price: ${item.price}</p>
+                <div>
+                  <label>quantity:</label>
+                  <input
+                    className="cutie-input"
+                    type="number"
+                    min="1"
+                    value={item.quantity}
+                    onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                  />
+                </div>
+                <br />
+                <button onClick={() => removeFromCart(item.id)}>Remove From Cart</button>
               </div>
-              <br />
-              <button onClick={() => removeFromCart(item.id)}>Remove From Cart</button>
-            </div>
-          ))}
-          <br />
+            ))}
+          </div>
 
           {/* Order Summary */}
           <div className="order-summary-card">
@@ -80,6 +81,8 @@ const Cart = () => {
               <span>${roundedGrandTotal}</span>
             </div>
           </div>
+
+          {/* Cart Buttons */}
           <div className="cart-buttons">
             <button onClick={clearCart}>Clear Cart</button>
             <button onClick={() => navigate('/checkout')}>Place Order</button>

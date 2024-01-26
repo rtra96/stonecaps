@@ -108,8 +108,24 @@ input {
 
 .cart-item {
   margin-top: 20px;
+  align-items: center;
+  border: 1px solid rgb(243, 237, 237);
+  max-width: 200px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
+.cart-items {
+  display: grid;
+  justify-content: center;
+}
+
+
+.whole-dang-cart {
+  display: grid;
+  justify-content: center;
+}
 .linkybuttons {
   color: black;
   border-radius: 3em;
@@ -130,7 +146,7 @@ input {
   padding: 20px;
   margin-top: 20px;
   background-color: #fff;
-  grid-column: initial; /* Reset grid-column to default value */
+  grid-column: initial; 
 }
 
 .order-summary-item {
@@ -201,6 +217,13 @@ button:hover {
   align-content: center;
  }
 
- h4{
+ h4,h2{
   margin-top: 5px;
  }
+
+.category-select{
+  margin-top: 10px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+}
+
