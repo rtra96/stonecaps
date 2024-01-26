@@ -9,6 +9,7 @@ import { useAuth } from "./Auth";
 
 
 
+
 function Navigationbar({ token, onLogout, resetCategoryFilter }) {
   const { cartItems, clearCart } = useContext(CartContext);
   const { user, logout } = useAuth();
@@ -85,3 +86,4 @@ function Navigationbar({ token, onLogout, resetCategoryFilter }) {
 }
 
 export default Navigationbar;
+

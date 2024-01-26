@@ -141,4 +141,5 @@ const LoginForm = ({ setToken, onLogin }) => {
   );
 };
 
+export {parseJwt};
 export default LoginForm;

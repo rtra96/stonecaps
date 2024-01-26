@@ -26,6 +26,7 @@ const App = () => {
 
     if (storedToken) {
       setToken(storedToken);
+      fetchUserDetails(); //experimental 
     }
   }, []);
 
@@ -81,18 +82,12 @@ const App = () => {
   };
 
   const handleLogin = async (userData) => {
-    
-    
-  
     // Set the token first
     setToken(userData.token);
-  
     // Waits 100 milliseconds before setting the user; allows the AuthProvider to update the context with the new token
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
     // Set the logged-in user
-    setLoggedInUser(loggedInUser);
-  
+    setLoggedInUser(userData);
     alert('Login Successful!');
   };
   
