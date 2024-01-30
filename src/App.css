@@ -25,21 +25,6 @@ body {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
@@ -63,6 +48,12 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 443px) {
+  .flavor-container {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
 }
 
 input {
@@ -280,4 +271,5 @@ button:hover {
   margin-bottom: 8px;
   border-radius: 3px;
 }
+
 
