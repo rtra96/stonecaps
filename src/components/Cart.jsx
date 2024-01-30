@@ -51,7 +51,7 @@ const Cart = () => {
                   />
                 </div>
                 <br />
-                <button onClick={() => removeFromCart(item.id)}>Remove From Cart</button>
+                <button className='removeFromCartButton' onClick={() => removeFromCart(item.id)}>Remove From Cart</button>
               </div>
             ))}
           </div>

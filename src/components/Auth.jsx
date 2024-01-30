@@ -7,21 +7,28 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check for user information in localStorage on component mount
-    const storedUserInfo = localStorage.getItem("userInfo");
+    const storedUserInfo = localStorage.getItem('userInfo');
     if (storedUserInfo) {
       const parsedUserInfo = JSON.parse(storedUserInfo);
       setUser(parsedUserInfo);
     }
-  }, []);
+  }, [setUser]);
 
   const login = (userData) => {
-    localStorage.setItem("userInfo", JSON.stringify(userData));
+    // Hard-code one user as admin based on username
+    // const isAdminUser = userData.username === 'mor_2314';
+
+    // Include the isAdmin property in the user data
+    // const updatedUserData = { ...userData, isAdmin: isAdminUser };
+
+    // Update localStorage with userData (not updatedUserData)
+    localStorage.setItem('userInfo', JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
     setUser(null);
   };
 
@@ -39,3 +46,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

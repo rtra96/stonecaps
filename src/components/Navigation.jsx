@@ -1,36 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from "./CartContext";
-import { useAuth } from "./Auth";
+import { CartContext } from './CartContext';
+import { useAuth } from './Auth';
 
-  function Navigationbar({ token, onLogout, resetCategoryFilter }) {
-  const { cartItems, clearCart } = useContext(CartContext);
-  const { user, logout } = useAuth();
+function Navigationbar({ token, onLogout, resetCategoryFilter, onLogin, navbarRefreshKey }) {
+  const { cartItems, user, logout } = useAuth();
+  const { clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  // Function to handle Logo click
   const handleNileLinkClick = () => {
-    // Call the resetCategoryFilter function to reset the category filter
     resetCategoryFilter();
-
-    // Navigate to the home page
     navigate('/');
   };
 
-  // Function to handle dropdown item selection
   const handleDropdownSelect = () => {
-    // Close the dropdown menu
-    document.getElementById("basic-nav-dropdown").click(); 
+    document.getElementById('basic-nav-dropdown').click();
   };
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar key={navbarRefreshKey} expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand className="nilelogo" to="/" as={Link} onClick={resetCategoryFilter}>
+        <Navbar.Brand className="nilelogo" to="/" as={Link} onClick={handleNileLinkClick}>
           Nile.on
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -38,17 +32,19 @@ import { useAuth } from "./Auth";
           <Nav className="me-auto">
             {token ? (
               <>
-                <Nav.Link disabled>Login</Nav.Link>
                 <Nav.Link to="/cart" as={Link}>
                   Cart
                 </Nav.Link>
                 <NavDropdown
-                  title={`Welcome, ${user ? user.username: "user"}`}
+                  title={
+                    <>
+                      Welcome, {user ? user.username : 'user'}{' '}
+                    </>
+                  }
                   id="basic-nav-dropdown"
-                  onSelect={handleDropdownSelect} 
+                  onSelect={handleDropdownSelect}
                 >
-                  <NavDropdown.Item href="#action/3.1">Contact Us</NavDropdown.Item>
-                  <NavDropdown.Item to="/account" as={Link} href="#action/3.2">
+                  <NavDropdown.Item to="/account" as={Link}>
                     View Account
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -58,7 +54,7 @@ import { useAuth } from "./Auth";
                       clearCart();
                       logout();
                       onLogout();
-                      localStorage.removeItem("cart");
+                      localStorage.removeItem('cart');
                     }}
                   >
                     Log Out
@@ -70,8 +66,9 @@ import { useAuth } from "./Auth";
                 <Nav.Link to="/login" as={Link}>
                   Login
                 </Nav.Link>
-                <Nav.Link to="/cart" as={Link}>
-                  Cart
+                {/* Add 'Create Account' button */}
+                <Nav.Link to="/register" as={Link}>
+                  Create Account
                 </Nav.Link>
               </>
             )}
@@ -83,4 +80,3 @@ import { useAuth } from "./Auth";
 }
 
 export default Navigationbar;
-

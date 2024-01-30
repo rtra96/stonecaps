@@ -38,13 +38,15 @@ const SingleProduct = () => {
       <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
       <p>Price: ${product.price}</p>
       <p>{product.description}</p>
+    <div className="linky-container">
       <button className="linkybuttons" onClick={handleAddToCart}>Add to Cart</button>
       <button className="linkybuttons">
         <Link to="/cart">
           Checkout ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
         </Link>
       </button>
-    </div>
+    </div>  
+  </div>
   );
 };
 

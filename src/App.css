@@ -103,6 +103,8 @@ input {
 .cart-buttons {
   display: flex;
   justify-content: center;
+  gap: 20px;
+  
 }
 
 .cart-item {
@@ -126,14 +128,32 @@ input {
   display: grid;
   justify-content: center;
 }
-.linkybuttons {
+
+.linky-container {
+  display: grid;
+  max-width: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.linkybuttons, 
+.removeFromCartButton, 
+.place-order
+ {
   color: black;
   border-radius: 3em;
   ;
 }
 
-.linkybuttons:hover {
+
+.linkybuttons:hover, 
+.place-order:hover{
   background-color: antiquewhite;
+}
+
+.removeFromCartButton:hover {
+  background-color: red;
 }
 
 .nilelogo {

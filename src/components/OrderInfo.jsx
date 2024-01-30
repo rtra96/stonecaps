@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import { useAuth } from "./Auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../App.css';
 
 const OrderInformationForm = () => {
   const { user } = useAuth();
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [state, setState] = useState("");
@@ -17,14 +18,44 @@ const OrderInformationForm = () => {
 
   useEffect(() => {
     // Set initial values based on user data when component mounts
-    if (user) {
-      setDeliveryAddress(`${user.address.number} ${user.address.street}`);
-      setZipCode(user.address.zipcode || "");
-      setState(""); 
-      setCity(user.address.city || "");
-
+    if (user && user.address) {
+      setDeliveryAddress(`${user.address.number || ''} ${user.address.street || ''}`);
+      setZipCode(user.address.zipcode || '');
+      setState('');
+      setCity(user.address.city || '');
     }
   }, [user]);
+
+  const validateForm = () => {
+    // Custom validation logic to check whether all required fields have values
+    return (
+      deliveryAddress.trim() !== "" &&
+      zipCode.trim() !== "" &&
+      state.trim() !== "" &&
+      city.trim() !== "" &&
+      cardNumber.trim() !== "" &&
+      expirationDate.trim() !== "" &&
+      billingZipCode.trim() !== ""
+    );
+  };
+
+  const handlePlaceOrderClick = (e) => {
+    // Prevent the default behavior of the button click event
+    e.preventDefault();
+
+    // Check form validity before navigating to the confirmation page
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      // Use navigate to navigate to the confirmation page
+      navigate("/confirmation");
+    } else {
+      // Display an error message or handle invalid form case
+      alert("Please fill in all required fields before placing the order.");
+    }
+  };
+
+
 
   // Calculate order summary values
   const numberOfItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -163,19 +194,13 @@ const OrderInformationForm = () => {
             </div>
           </div >
           <div className="combined-summary centered-button">
-            <button><Link to ="/confirmation">Place Order</Link></button>
+            <button className="place-order" onClick={handlePlaceOrderClick} to ="/confirmation">Place Order</button>
           </div>
         </div>
       ) : (
         // Prompt user to log in or create an account
         <div>
-          <p>Please log in or create an account to proceed with the checkout.</p>
-          <button>
-            <Link to="/login">Login</Link>
-          </button>
-          <button>
-            <Link to="/register">Create an Account</Link>
-          </button>
+          <p>Please <Link to="/login">Log in </Link> or <Link to="/register">Create an Account</Link> to proceed with the checkout.</p>
         </div>
       )}
     </div>
@@ -183,5 +208,3 @@ const OrderInformationForm = () => {
 };
 
 export default OrderInformationForm;
-
-

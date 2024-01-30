@@ -33,11 +33,6 @@ export const fetchProducts = async () => {
   }
 };
 
-//Fetch products by category
-export const fetchProductsByCategory = async (category) => {
-  return fetchData(`products/category/${category}`);
-};
-
 // Fetch categories
 export const fetchCategories = async () => {
   return fetchData('products/categories');

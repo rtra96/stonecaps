@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchProducts, fetchCategories, fetchProductsByCategory } from "../API"; 
+import { fetchProducts, fetchCategories } from "../API";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import ScrollToTopIcon from '../images/uparrow.svg';
@@ -7,7 +7,9 @@ import ScrollToTopIcon from '../images/uparrow.svg';
 export default function AllProducts({ resetCategoryFilter }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all'); // Set default category to 'all'
+  const [sortOrder, setSortOrder] = useState(null); // Default to null for no initial sorting
+  const [sortedProducts, setSortedProducts] = useState([]); // Separate state for sorted products
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +17,7 @@ export default function AllProducts({ resetCategoryFilter }) {
       try {
         const nextProducts = await fetchProducts();
         setProducts(nextProducts);
+        setSortedProducts(nextProducts); // Initialize sortedProducts with initial products
 
         const categoryList = await fetchCategories();
         setCategories(categoryList);
@@ -49,28 +52,40 @@ export default function AllProducts({ resetCategoryFilter }) {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    if (category) {
-      fetchProductsByCategory(category)
-        .then((products) => setProducts(products))
-        .catch((error) => console.error(error));
+
+    if (category === 'all') {
+      // If 'all' is selected, set sortedProducts to all products
+      setSortedProducts(products);
     } else {
-      // If no category is selected, fetch all products
-      fetchProducts()
-        .then((allProducts) => setProducts(allProducts))
-        .catch((error) => console.error(error));
+      // If a specific category is selected, set sortedProducts to filtered products
+      const filteredProducts = products.filter((product) => product.category === category);
+      setSortedProducts(filteredProducts);
     }
   };
 
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+
+    // Clone the sorted products array to avoid mutating the original state
+    const sortedProductsClone = [...sortedProducts];
+
+    if (order === 'asc') {
+      sortedProductsClone.sort((a, b) => a.price - b.price);
+    } else if (order === 'desc') {
+      sortedProductsClone.sort((a, b) => b.price - a.price);
+    }
+
+    setSortedProducts(sortedProductsClone);
+  };
 
   return (
     <div>
       <div>
         <div className="category-select">
           <label htmlFor="category">Sort by Category:</label>
-          <select id="category" onChange={(e) => handleCategoryChange(e.target.value)}>
+          <select id="category" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
+            {/* Add the default 'all' option... was not provided by this API */}
+            <option value="all">all</option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
@@ -78,16 +93,27 @@ export default function AllProducts({ resetCategoryFilter }) {
             ))}
           </select>
         </div>
-        {filteredProducts.map((product) => (
-          <div key={product.id}>
-            <h4>{product.title}</h4>
-            <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
-            <br /><br />
-            <button className="linkybuttons" onClick={() => handleSeeDetails(product.id)}>See Details</button>
-            <br /><br />
-          </div>
-        ))}
+
+        <div className="sort-select">
+          <label htmlFor="sortOrder">Sort by Price:</label>
+          <select id="sortOrder" value={sortOrder || ''} onChange={(e) => handleSortChange(e.target.value)}>
+            <option value="">none</option>
+            <option value="asc">lowest to highest</option>
+            <option value="desc">highest to lowest</option>
+          </select>
+        </div>
       </div>
+
+      {sortedProducts.map((product) => (
+        <div key={product.id}>
+          <h4>{product.title}</h4>
+          <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
+          <br /><br />
+          <button className="linkybuttons" onClick={() => handleSeeDetails(product.id)}>See Details</button>
+          <br /><br />
+        </div>
+      ))}
+
       <div
         id="scroll-to-top-icon"
         style={{
