@@ -83,9 +83,6 @@ const LoginForm = ({ setToken, onLogin }) => {
             // Then, set the user in the context
           login(loggedInUser);
 
-          // Additional logic or alerts if needed
-          alert('Login Successful!');
-
           // Update the state to trigger redirection
           setRedirect(true);
         }, 0);

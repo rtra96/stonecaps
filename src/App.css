@@ -1,4 +1,3 @@
-
 body {
   font-family: sans-serif;
   background-color: rgb(198, 199, 223);
@@ -110,7 +109,7 @@ input {
   margin-top: 20px;
   align-items: center;
   border: 1px solid rgb(243, 237, 237);
-  max-width: 200px;
+  max-width: 400px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -119,6 +118,7 @@ input {
 .cart-items {
   display: grid;
   justify-content: center;
+  width: auto;
 }
 
 
@@ -171,8 +171,8 @@ input {
 }
 
 .user-information,
-.shipping-destination,
 .payment-information,
+.shipping-destination,
 .order-review {
   border: 1px solid #ccc;
   padding: 15px;
@@ -180,6 +180,40 @@ input {
 
 }
 
+.user-information {
+  display: grid;
+  align-content: center;
+}
+
+.user-information p {
+  margin-top: 65px;
+}
+
+.payment-information label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-information input {
+  width: calc(50%); 
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.shipping-destination label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.shipping-destination input {
+  width: calc(100% - 20px); 
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .order-summary {
   border: 1px solid #ccc;
   padding: 15px;

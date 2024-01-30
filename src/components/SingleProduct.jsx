@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart(); 
 
   useEffect(() => {
     async function getProductDetails() {
@@ -29,8 +29,7 @@ const SingleProduct = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart(product); 
-    alert('Item added to cart!');
+    addToCart(product);
   };
 
   return (
@@ -40,9 +39,14 @@ const SingleProduct = () => {
       <p>Price: ${product.price}</p>
       <p>{product.description}</p>
       <button className="linkybuttons" onClick={handleAddToCart}>Add to Cart</button>
-      <button className="linkybuttons" ><Link to= "/cart">Checkout</Link></button>
+      <button className="linkybuttons">
+        <Link to="/cart">
+          Checkout ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
+        </Link>
+      </button>
     </div>
   );
 };
 
 export default SingleProduct;
+

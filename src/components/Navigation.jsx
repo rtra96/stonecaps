@@ -7,10 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from "./CartContext";
 import { useAuth } from "./Auth";
 
-
-
-
-function Navigationbar({ token, onLogout, resetCategoryFilter }) {
+  function Navigationbar({ token, onLogout, resetCategoryFilter }) {
   const { cartItems, clearCart } = useContext(CartContext);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -46,7 +43,7 @@ function Navigationbar({ token, onLogout, resetCategoryFilter }) {
                   Cart
                 </Nav.Link>
                 <NavDropdown
-                  title={`Welcome, ${user ? user.username : "user"}`}
+                  title={`Welcome, ${user ? user.username: "user"}`}
                   id="basic-nav-dropdown"
                   onSelect={handleDropdownSelect} 
                 >

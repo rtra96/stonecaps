@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import { useAuth } from "./Auth";
 import { Link } from "react-router-dom";
@@ -7,13 +7,24 @@ import '../App.css';
 const OrderInformationForm = () => {
   const { user } = useAuth();
   const { cartItems } = useContext(CartContext);
-  const [shippingDestination, setShippingDestination] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [billingZipCode, setBillingZipCode] = useState("");
+
+  useEffect(() => {
+    // Set initial values based on user data when component mounts
+    if (user) {
+      setDeliveryAddress(`${user.address.number} ${user.address.street}`);
+      setZipCode(user.address.zipcode || "");
+      setState(""); 
+      setCity(user.address.city || "");
+
+    }
+  }, [user]);
 
   // Calculate order summary values
   const numberOfItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -37,7 +48,7 @@ const OrderInformationForm = () => {
         // Display user information if logged in
         <div className="order-information-grid">
           <div className="user-information">
-            <p>Name: {user.name.firstname}</p>
+            <p>Name: {user.name.firstname} {user.name.lastname}</p>
             <p>Email: {user.email}</p>
             <p>Phone: {user.phone}</p>
           </div>
@@ -45,52 +56,52 @@ const OrderInformationForm = () => {
           <div className="shipping-destination">
             <h3>Shipping Destination</h3>
             <div>
-              <label htmlFor="deliveryAddress">Delivery Address..</label>
+              <label htmlFor="deliveryAddress">Delivery Address</label>
               <input
                 type="text"
                 id="deliveryAddress"
-                placeholder="Enter delivery address"
-                value={shippingDestination}
-                onChange={(e) => setShippingDestination(e.target.value)}
+                placeholder="Delivery Address"
+                value={deliveryAddress}
+                readOnly
               />
             </div>
             <div>
-              <label htmlFor="zipCode">Zip Code..............</label>
+              <label htmlFor="zipCode">Zip Code</label>
               <input
                 type="text"
                 id="zipCode"
                 placeholder="Enter zip code"
                 value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
+                readOnly
               />
             </div>
             <div>
-              <label htmlFor="state">State....................</label>
+              <label htmlFor="state">State</label>
               <input
                 type="text"
                 id="state"
                 placeholder="Enter state"
                 value={state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e) => setState(e.target.value)} 
               />
             </div>
             <div>
-              <label htmlFor="city">City.......................</label>
+              <label htmlFor="city">City</label>
               <input
                 type="text"
                 id="city"
                 placeholder="Enter city"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                readOnly
               />
             </div>
           </div>
 
           <div className="payment-information">
             <h3>Payment Information</h3>
-            <div>
-              <label htmlFor="cardNumber">Card Number:</label>
-              <input
+             <div>
+               <label htmlFor="cardNumber">Card Number</label>
+               <input
                 type="text"
                 placeholder="Debit/Credit card number"
                 value={cardNumber}
@@ -98,7 +109,7 @@ const OrderInformationForm = () => {
               />
             </div>
             <div>
-              <label htmlFor="expirationDate">Expiration Date:</label>
+              <label htmlFor="expirationDate">Expiration Date</label>
               <input
                 type="text"
                 placeholder="MM/YYYY"
@@ -118,11 +129,11 @@ const OrderInformationForm = () => {
           </div>
 
           <div className="combined-summary">
-            <div className="order-review">
-              <h3>Order Review</h3>
-              {cartItems.map((item) => (
+             <div className="order-review">
+               <h3>Order Review</h3>
+               {cartItems.map((item) => (
                 <div key={item.id}>
-                  <p>{item.title} - ${item.price * item.quantity}</p>
+                  <p>({item.quantity}) {item.title} - ${item.price * item.quantity}</p>
                 </div>
               ))}
             </div>
@@ -172,3 +183,5 @@ const OrderInformationForm = () => {
 };
 
 export default OrderInformationForm;
+
+
