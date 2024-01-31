@@ -8,13 +8,12 @@ import { Link } from "react-router-dom";
 const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const { addToCart, cartItems } = useCart(); 
+  const { addToCart, cartItems } = useCart();
 
   useEffect(() => {
     async function getProductDetails() {
       try {
         const productDetails = await fetchProductById(id);
-        console.log('Product details:', productDetails);
         setProduct(productDetails);
       } catch (err) {
         console.error(err);
@@ -35,20 +34,25 @@ const SingleProduct = () => {
   return (
     <div>
       <h4>{product.title}</h4>
-      <img className="productimg" src={product.image} alt={`photo of ${product.id}`} />
+      <img
+        className="productimg"
+        src={product.image}
+        alt={`photo of ${product.id}`}
+      />
       <p>Price: ${product.price}</p>
       <p>{product.description}</p>
-    <div className="linky-container">
-      <button className="linkybuttons" onClick={handleAddToCart}>Add to Cart</button>
-      <button className="linkybuttons">
-        <Link to="/cart">
-          Checkout ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
-        </Link>
-      </button>
-    </div>  
-  </div>
+      <div className="linky-container">
+        <button className="linkybuttons" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
+        <button className="linkybuttons">
+          <Link to="/cart">
+            Checkout ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
+          </Link>
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default SingleProduct;
-

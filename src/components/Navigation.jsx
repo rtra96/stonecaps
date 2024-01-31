@@ -1,30 +1,41 @@
-import React, { useContext, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from './CartContext';
-import { useAuth } from './Auth';
+import React, { useContext, useEffect } from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "./CartContext";
+import { useAuth } from "./Auth";
 
-function Navigationbar({ token, onLogout, resetCategoryFilter, onLogin, navbarRefreshKey }) {
+function Navigationbar({
+  token,
+  onLogout,
+  resetCategoryFilter,
+  onLogin,
+  navbarRefreshKey,
+}) {
   const { cartItems, user, logout } = useAuth();
   const { clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const handleNileLinkClick = () => {
     resetCategoryFilter();
-    navigate('/');
+    navigate("/");
   };
 
   const handleDropdownSelect = () => {
-    document.getElementById('basic-nav-dropdown').click();
+    document.getElementById("basic-nav-dropdown").click();
   };
 
   return (
     <Navbar key={navbarRefreshKey} expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand className="nilelogo" to="/" as={Link} onClick={handleNileLinkClick}>
+        <Navbar.Brand
+          className="nilelogo"
+          to="/"
+          as={Link}
+          onClick={handleNileLinkClick}
+        >
           Nile.on
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -36,11 +47,7 @@ function Navigationbar({ token, onLogout, resetCategoryFilter, onLogin, navbarRe
                   Cart
                 </Nav.Link>
                 <NavDropdown
-                  title={
-                    <>
-                      Welcome, {user ? user.username : 'user'}{' '}
-                    </>
-                  }
+                  title={<>Welcome, {user ? user.username : "user"} </>}
                   id="basic-nav-dropdown"
                   onSelect={handleDropdownSelect}
                 >
@@ -54,7 +61,7 @@ function Navigationbar({ token, onLogout, resetCategoryFilter, onLogin, navbarRe
                       clearCart();
                       logout();
                       onLogout();
-                      localStorage.removeItem('cart');
+                      localStorage.removeItem("cart");
                     }}
                   >
                     Log Out

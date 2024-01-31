@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from './Auth';
-import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "./Auth";
+import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 // Decode JWT token
 const parseJwt = (token) => {
   try {
-    return JSON.parse(atob(token.split('.')[1]));
+    return JSON.parse(atob(token.split(".")[1]));
   } catch (e) {
     return null;
   }
@@ -14,13 +14,13 @@ const parseJwt = (token) => {
 
 const LoginForm = ({ setToken, onLogin }) => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,10 +34,10 @@ const LoginForm = ({ setToken, onLogin }) => {
     try {
       setLoading(true);
 
-      const response = await fetch('https://fakestoreapi.com/auth/login', {
-        method: 'POST',
+      const response = await fetch("https://fakestoreapi.com/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: formData.username,
@@ -48,34 +48,24 @@ const LoginForm = ({ setToken, onLogin }) => {
       const json = await response.json();
 
       if (response.ok) {
-        console.log('Login Successful!:', json);
         const userToken = json.token;
-        localStorage.setItem('token', userToken);
+        localStorage.setItem("token", userToken);
 
         // Decode the token to get user information
         const decodedToken = parseJwt(userToken);
-        console.log('Decoded Token:', decodedToken);
 
         // get userid from token and get userdata from API
         const userId = decodedToken.sub;
-        const userResponse = await fetch(`https://fakestoreapi.com/users/${userId}`);
+        const userResponse = await fetch(
+          `https://fakestoreapi.com/users/${userId}`,
+        );
         const userJson = await userResponse.json();
 
-        console.log(userJson);
-
-        const loggedInUser = {
-          id: userJson.userId,
-          username: formData.username,
-          name: userJson.name,
-          email: userJson.email,
-          phone: userJson.phone,
-        };
-
         // Set the user in the context after fetching user data
-        setUser(loggedInUser);
+        setUser(userJson);
 
         // Save user info in localStorage
-        localStorage.setItem('userInfo', JSON.stringify(loggedInUser));
+        localStorage.setItem("userInfo", JSON.stringify(userJson));
 
         // Call onLogin with the necessary user data
         onLogin({
@@ -86,12 +76,12 @@ const LoginForm = ({ setToken, onLogin }) => {
         // Update the state to trigger redirection
         setRedirect(true);
       } else {
-        console.error('Login failed:', response.statusText);
-        alert('Login Failed. Enter a valid Username and Password.');
+        console.error("Login failed:", response.statusText);
+        alert("Login Failed. Enter a valid Username and Password.");
       }
     } catch (error) {
-      console.error('Login failed:', error.message);
-      alert('Login failed. Check Username and Password');
+      console.error("Login failed:", error.message);
+      alert("Login failed. Check Username and Password");
     } finally {
       setLoading(false);
     }
@@ -103,7 +93,7 @@ const LoginForm = ({ setToken, onLogin }) => {
       if (redirect) {
         // Trigger the redirect after the state is updated
         await new Promise((resolve) => setTimeout(resolve, 0));
-        navigate('/');
+        navigate("/");
       }
     };
 
@@ -141,12 +131,11 @@ const LoginForm = ({ setToken, onLogin }) => {
         <br />
 
         <button type="submit" disabled={loading} className="punch-button">
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
   );
 };
 
-export { parseJwt };
 export default LoginForm;

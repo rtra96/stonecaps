@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "./CartContext";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();
@@ -8,7 +8,10 @@ const Cart = () => {
 
   // Calculate order summary values
   const numberOfItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const shippingAndHandling = 10;
   const totalBeforeTax = totalPrice + shippingAndHandling;
   const taxRate = 0.1;
@@ -37,7 +40,11 @@ const Cart = () => {
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.id} className="cart-item">
-                <img src={item.image} alt={item.title} style={{ maxHeight: '100px', maxWidth: '150px' }} />
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  style={{ maxHeight: "100px", maxWidth: "150px" }}
+                />
                 <p>{item.title}</p>
                 <p>Price: ${item.price}</p>
                 <div>
@@ -47,11 +54,18 @@ const Cart = () => {
                     type="number"
                     min="1"
                     value={item.quantity}
-                    onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, parseInt(e.target.value))
+                    }
                   />
                 </div>
                 <br />
-                <button className='removeFromCartButton' onClick={() => removeFromCart(item.id)}>Remove From Cart</button>
+                <button
+                  className="removeFromCartButton"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove From Cart
+                </button>
               </div>
             ))}
           </div>
@@ -85,7 +99,7 @@ const Cart = () => {
           {/* Cart Buttons */}
           <div className="cart-buttons">
             <button onClick={clearCart}>Clear Cart</button>
-            <button onClick={() => navigate('/checkout')}>Place Order</button>
+            <button onClick={() => navigate("/checkout")}>Place Order</button>
           </div>
         </div>
       )}

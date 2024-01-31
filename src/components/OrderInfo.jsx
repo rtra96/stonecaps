@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import { useAuth } from "./Auth";
 import { Link, useNavigate } from "react-router-dom";
-import '../App.css';
+import "../App.css";
 
 const OrderInformationForm = () => {
   const { user } = useAuth();
@@ -19,15 +19,17 @@ const OrderInformationForm = () => {
   useEffect(() => {
     // Set initial values based on user data when component mounts
     if (user && user.address) {
-      setDeliveryAddress(`${user.address.number || ''} ${user.address.street || ''}`);
-      setZipCode(user.address.zipcode || '');
-      setState('');
-      setCity(user.address.city || '');
+      setDeliveryAddress(
+        `${user.address.number || ""} ${user.address.street || ""}`,
+      );
+      setZipCode(user.address.zipcode || "");
+      setState("");
+      setCity(user.address.city || "");
     }
   }, [user]);
 
   const validateForm = () => {
-    // Custom validation logic to check whether all required fields have values
+    // Validation logic to check whether all required fields have values
     return (
       deliveryAddress.trim() !== "" &&
       zipCode.trim() !== "" &&
@@ -55,11 +57,12 @@ const OrderInformationForm = () => {
     }
   };
 
-
-
   // Calculate order summary values
   const numberOfItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const shippingAndHandling = 10;
   const totalBeforeTax = totalPrice + shippingAndHandling;
   const taxRate = 0.1;
@@ -79,7 +82,9 @@ const OrderInformationForm = () => {
         // Display user information if logged in
         <div className="order-information-grid">
           <div className="user-information">
-            <p>Name: {user.name.firstname} {user.name.lastname}</p>
+            <p>
+              Name: {user.name.firstname} {user.name.lastname}
+            </p>
             <p>Email: {user.email}</p>
             <p>Phone: {user.phone}</p>
           </div>
@@ -113,7 +118,7 @@ const OrderInformationForm = () => {
                 id="state"
                 placeholder="Enter state"
                 value={state}
-                onChange={(e) => setState(e.target.value)} 
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
             <div>
@@ -130,9 +135,9 @@ const OrderInformationForm = () => {
 
           <div className="payment-information">
             <h3>Payment Information</h3>
-             <div>
-               <label htmlFor="cardNumber">Card Number</label>
-               <input
+            <div>
+              <label htmlFor="cardNumber">Card Number</label>
+              <input
                 type="text"
                 placeholder="Debit/Credit card number"
                 value={cardNumber}
@@ -160,11 +165,14 @@ const OrderInformationForm = () => {
           </div>
 
           <div className="combined-summary">
-             <div className="order-review">
-               <h3>Order Review</h3>
-               {cartItems.map((item) => (
+            <div className="order-review">
+              <h3>Order Review</h3>
+              {cartItems.map((item) => (
                 <div key={item.id}>
-                  <p>({item.quantity}) {item.title} - ${item.price * item.quantity}</p>
+                  <p>
+                    ({item.quantity}) {item.title} - $
+                    {item.price * item.quantity}
+                  </p>
                 </div>
               ))}
             </div>
@@ -192,15 +200,25 @@ const OrderInformationForm = () => {
                 <span>${roundedGrandTotal}</span>
               </div>
             </div>
-          </div >
+          </div>
           <div className="combined-summary centered-button">
-            <button className="place-order" onClick={handlePlaceOrderClick} to ="/confirmation">Place Order</button>
+            <button
+              className="place-order"
+              onClick={handlePlaceOrderClick}
+              to="/confirmation"
+            >
+              Place Order
+            </button>
           </div>
         </div>
       ) : (
         // Prompt user to log in or create an account
         <div>
-          <p>Please <Link to="/login">Log in </Link> or <Link to="/register">Create an Account</Link> to proceed with the checkout.</p>
+          <p>
+            Please <Link to="/login">Log in </Link> or{" "}
+            <Link to="/register">Create an Account</Link> to proceed with the
+            checkout.
+          </p>
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check for user information in localStorage on component mount
-    const storedUserInfo = localStorage.getItem('userInfo');
+    const storedUserInfo = localStorage.getItem("userInfo");
     if (storedUserInfo) {
       const parsedUserInfo = JSON.parse(storedUserInfo);
       setUser(parsedUserInfo);
@@ -22,13 +22,13 @@ export const AuthProvider = ({ children }) => {
     // const updatedUserData = { ...userData, isAdmin: isAdminUser };
 
     // Update localStorage with userData (not updatedUserData)
-    localStorage.setItem('userInfo', JSON.stringify(userData));
+    localStorage.setItem("userInfo", JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     setUser(null);
   };
 
@@ -42,8 +42,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
-

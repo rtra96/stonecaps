@@ -1,155 +1,18 @@
-// import React, { useState, useEffect } from 'react';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import Navbar from './Navigation';
-// import AllProducts from './AllProducts';
-// import RegistrationForm from './Register';
-// import LoginForm from './Login';
-// import Account from './Account';
-// import Loggedout from './Loggedout';
-// import SingleProduct from './SingleProduct';
-// import { AuthProvider, useAuth } from './Auth';
-// import CartProvider  from './CartContext';
-// import Cart from './Cart';
-// import OrderInformationForm from './OrderInfo';
-// import Confirmation from './Confirmation';
-
-// const App = () => {
-//   const [token, setToken] = useState(null);
-//   const [loggedInUser, setLoggedInUser] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   const { login, setUser } = useAuth();
-//   const [navbarRefreshKey, setNavbarRefreshKey] = useState(0);
-
-//   useEffect(() => {
-//     const storedToken = localStorage.getItem('token');
-
-//     if (storedToken) {
-//       setToken(storedToken);
-      
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     if (token === null) {
-//       setLoggedInUser(null);
-//       setLoading(false);
-//       return;
-//     }
-
-//     fetchUserDetails();
-//   }, [token]);
-
-//   const fetchUserDetails = async () => {
-//     if (token) {
-//       try {
-//         const tokenData = parseJwt(token);
-//         const response = await fetch(`https://fakestoreapi.com/users/${tokenData.sub}`, {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         });
-
-//         if (response.ok) {
-//           const userData = await response.json();
-//           login(userData);
-//           setUser(userData);
-//           setLoggedInUser(userData);
-//         } else {
-//           console.error('Failed to fetch user information:', response.statusText);
-//           setError('Failed to fetch user information. Please try again.');
-//         }
-//       } catch (error) {
-//         console.error('Error fetching user information:', error.message);
-//         setError('An unexpected error occurred. Please try again.');
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-//   };
-
-//   const parseJwt = (token) => {
-//     try {
-//       return JSON.parse(atob(token.split('.')[1]));
-//     } catch (e) {
-//       return null;
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     setToken(null);
-//     setLoggedInUser(null);
-//   };
-
-//   const handleLogin = async (userData) => {
-//     if (userData && userData.token) {
-//       // Set the token first
-//       setToken(userData.token);
-  
-//       // Ensure that userData.user is defined before setting the user-related states
-//       if (userData.user) {
-//         setUser(userData.user);
-//         setLoggedInUser(userData.user);
-//       } else {
-//         console.error('Invalid user data - user information is missing:', userData);
-//       }
-  
-//       alert('Login Successful!');
-//     } else {
-//       console.error('Invalid user data - token is missing:', userData);
-//     }
-//   };
-  
-//   return (
-//     <CartProvider>
-//       <AuthProvider>
-//         <BrowserRouter>
-//         <div>
-//         <Navbar    
-//               key={token} // Add key to force remount when the token changes
-//               token={token}
-//               onLogout={handleLogout} />
-//             <Routes>
-//               <Route path="/" element={<AllProducts />} />
-//               <Route path="/register" element={<RegistrationForm />} />
-//               <Route
-//                 path="/login"
-//                 element={<LoginForm setToken={setToken} onLogin={handleLogin} />}
-//               />
-//               <Route path="/account" element={<Account token={token} setLoggedInUser={setLoggedInUser} loggedInUser={loggedInUser} loading={loading} error={error}/>} />
-//               <Route path="/logout" element={<Loggedout />} />
-//               <Route path="/product/:id" element={<SingleProduct />} />
-//               <Route path="/cart" element={<Cart />} />
-//               <Route path="/checkout" element={<OrderInformationForm />} />
-//               <Route path="/confirmation" element={<Confirmation />} />
-//             </Routes>
-//             </div>  
-//         </BrowserRouter>
-//       </AuthProvider>
-//     </CartProvider>
-//   );
-// };
-
-// export default App;
-
-//experimental code:
-
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import Navbar from './Navigation';
-import AllProducts from './AllProducts';
-import RegistrationForm from './Register';
-import LoginForm from './Login';
-import Account from './Account';
-import Loggedout from './Loggedout';
-import SingleProduct from './SingleProduct';
-import { AuthProvider, useAuth } from './Auth';
-import CartProvider from './CartContext';
-import OrderInformationForm from './OrderInfo';
-import Confirmation from './Confirmation';
-import Cart from './Cart';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import Navbar from "./Navigation";
+import AllProducts from "./AllProducts";
+import RegistrationForm from "./Register";
+import LoginForm from "./Login";
+import Account from "./Account";
+import Loggedout from "./Loggedout";
+import SingleProduct from "./SingleProduct";
+import { AuthProvider, useAuth } from "./Auth";
+import CartProvider from "./CartContext";
+import OrderInformationForm from "./OrderInfo";
+import Confirmation from "./Confirmation";
+import Cart from "./Cart";
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -159,7 +22,7 @@ const App = () => {
   const { login, setUser } = useAuth();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+    const storedToken = localStorage.getItem("token");
 
     if (storedToken) {
       setToken(storedToken);
@@ -180,24 +43,30 @@ const App = () => {
     if (token) {
       try {
         const tokenData = parseJwt(token);
-        const response = await fetch(`https://fakestoreapi.com/users/${tokenData.sub}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `https://fakestoreapi.com/users/${tokenData.sub}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         if (response.ok) {
           const userData = await response.json();
           login(userData);
           setUser(userData);
           setLoggedInUser(userData);
-          } else {
-          console.error('Failed to fetch user information:', response.statusText);
-          setError('Failed to fetch user information. Please try again.');
+        } else {
+          console.error(
+            "Failed to fetch user information:",
+            response.statusText,
+          );
+          setError("Failed to fetch user information. Please try again.");
         }
       } catch (error) {
-        console.error('Error fetching user information:', error.message);
-        setError('An unexpected error occurred. Please try again.');
+        console.error("Error fetching user information:", error.message);
+        setError("An unexpected error occurred. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -216,7 +85,7 @@ const App = () => {
 
   const parseJwt = (token) => {
     try {
-      return JSON.parse(atob(token.split('.')[1]));
+      return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {
       return null;
     }
@@ -230,7 +99,7 @@ const App = () => {
   const handleLogin = async (userData) => {
     // Set the token first
     setToken(userData.token);
-  
+
     // Set the logged-in user after a short delay to ensure the token state is updated
     setTimeout(() => {
       setLoggedInUser(userData);
@@ -248,9 +117,22 @@ const App = () => {
               <Route path="/register" element={<RegistrationForm />} />
               <Route
                 path="/login"
-                element={<LoginForm setToken={setToken} onLogin={handleLogin} />}
+                element={
+                  <LoginForm setToken={setToken} onLogin={handleLogin} />
+                }
               />
-              <Route path="/account" element={<Account token={token} setLoggedInUser={setLoggedInUser} loggedInUser={loggedInUser} loading={loading} error={error} />} />
+              <Route
+                path="/account"
+                element={
+                  <Account
+                    token={token}
+                    setLoggedInUser={setLoggedInUser}
+                    loggedInUser={loggedInUser}
+                    loading={loading}
+                    error={error}
+                  />
+                }
+              />
               <Route path="/logout" element={<Loggedout />} />
               <Route path="/product/:id" element={<SingleProduct />} />
               <Route path="/cart" element={<Cart />} />
@@ -265,5 +147,3 @@ const App = () => {
 };
 
 export default App;
-
-

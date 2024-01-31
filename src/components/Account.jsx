@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
-  
-
   if (loading) {
     return <p>Loading user information...</p>;
   }
@@ -21,7 +19,10 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
           <p>Phone: {loggedInUser.phone}</p>
         </div>
       ) : (
-        <p><Link to="/login">Log in </Link> or <Link to="/register">Create an Account</Link></p>
+        <p>
+          <Link to="/login">Log in </Link> or{" "}
+          <Link to="/register">Create an Account</Link>
+        </p>
       )}
     </div>
   );
