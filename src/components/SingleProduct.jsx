@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchProductById, formatPrice} from "../API";
+import { fetchProductById, formatPrice } from "../API";
 import { useCart } from "./CartContext";
-import "../App.css";
 import { Link } from "react-router-dom";
+import RelatedProducts from "./RelatedProducts"; // Import the RelatedProducts component
+import "../App.css";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -51,9 +52,13 @@ const SingleProduct = () => {
           </Link>
         </button>
       </div>
+      
+      <RelatedProducts 
+        currentProductId={id}
+        currentCategory={product.category}
+      />
     </div>
   );
 };
 
 export default SingleProduct;
-
