@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchProductById } from "../API";
+import { fetchProductById, formatPrice} from "../API";
 import { useCart } from "./CartContext";
 import "../App.css";
 import { Link } from "react-router-dom";
@@ -39,7 +39,7 @@ const SingleProduct = () => {
         src={product.image}
         alt={`photo of ${product.id}`}
       />
-      <p className="how-much-dat-is">${product.price}</p>
+      <p className="how-much-dat-is">${formatPrice(product.price)}</p>
       <p>{product.description}</p>
       <div className="linky-container">
         <button className="linkybuttons" onClick={handleAddToCart}>

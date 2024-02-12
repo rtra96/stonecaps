@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./CartContext";
+import { formatPrice } from "../API";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();

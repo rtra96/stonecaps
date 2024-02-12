@@ -33,6 +33,11 @@ export const fetchProducts = async () => {
   }
 };
 
+// Function to format prices and handle changes
+export const formatPrice = (price) => {
+  return price.toFixed(2); // Round to 2 decimal places
+  };
+
 // Fetch categories
 export const fetchCategories = async () => {
   return fetchData('products/categories');

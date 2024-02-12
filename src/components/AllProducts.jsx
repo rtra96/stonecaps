@@ -1,6 +1,6 @@
 // experimental code
 import React, { useEffect, useState } from "react";
-import { fetchProducts, fetchCategories } from "../API";
+import { fetchProducts, fetchCategories, formatPrice } from "../API";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import ScrollToTopIcon from "../images/uparrow.svg";
@@ -120,7 +120,7 @@ export default function AllProducts({ resetCategoryFilter }) {
             />
             <br />
             <br />
-            <p className="how-much-dat-is">${product.price}</p>
+            <p className="how-much-dat-is">${formatPrice(product.price)}</p>
             <button
               className="linkybuttons see-details-button"
               onClick={() => handleSeeDetails(product.id)}
