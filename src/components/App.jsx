@@ -14,6 +14,7 @@ import OrderInformationForm from "./OrderInfo";
 import Confirmation from "./Confirmation";
 import Cart from "./Cart";
 
+
 const App = () => {
   const [token, setToken] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -138,6 +139,7 @@ const App = () => {
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<OrderInformationForm />} />
               <Route path="/confirmation" element={<Confirmation />} />
+              <Route path="/account" element={<Account />} />
             </Routes>
           </div>
         </BrowserRouter>

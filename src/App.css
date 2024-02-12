@@ -1,5 +1,4 @@
 body {
-  font-family: sans-serif;
   background-color: rgb(198, 199, 223);
 }
 
@@ -284,4 +283,36 @@ body {
   margin-top: 10px;
   margin-bottom: 8px;
   border-radius: 3px;
+}
+
+/* experimental */
+.your-account-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.grid-item {
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: scale(1.05);
+}
+.grid-item h3 {
+  margin-top: 0;
+}
+
+.grid-item p {
+  margin-bottom: 0;
 }
