@@ -13,6 +13,7 @@ import CartProvider from "./CartContext";
 import OrderInformationForm from "./OrderInfo";
 import Confirmation from "./Confirmation";
 import Cart from "./Cart";
+import ShippingProfileComponent from "./EditUser";
 
 
 const App = () => {
@@ -140,6 +141,7 @@ const App = () => {
               <Route path="/checkout" element={<OrderInformationForm />} />
               <Route path="/confirmation" element={<Confirmation />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/edit" element={<ShippingProfileComponent />} />
             </Routes>
           </div>
         </BrowserRouter>

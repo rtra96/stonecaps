@@ -23,14 +23,16 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
         //   <p>Phone: {loggedInUser.phone}</p>
         // </div>
     <div className="your-account-container">
-      <h2>Your Account</h2>
+      <h2>Account Dashboard</h2>
       <div className="grid-container">
         <div className="grid-item">
-          <img src={useredit} 
-           alt="edit user info"
-           style={{ maxWidth: "100px", maxHeight: "100px" }} />
-          <h3>Your Information</h3>
-          <p>Update your personal info</p>
+          <Link to = "/edit" className="link-style" >
+            <img src={useredit} 
+             alt="edit user info"
+             style={{ maxWidth: "100px", maxHeight: "100px" }} />
+            <h3>Your Information</h3>
+            <p>Update your personal info</p>
+          </Link>
         </div>
         <div className="grid-item">
         <img src={orders} 

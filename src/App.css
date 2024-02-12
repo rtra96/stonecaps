@@ -135,6 +135,7 @@ body {
 .cart-item-card {
   margin-top: 20px;
   align-items: center;
+  background-color: rgb(255, 255, 255);
   border: 1px solid rgb(243, 237, 237);
   max-width: 400px;
   padding: 10px;
@@ -186,7 +187,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-top: 20px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   grid-column: initial; 
 }
 
@@ -303,6 +304,7 @@ body {
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  text-decoration: none;
   transition: transform 0.3s ease;
 }
 
@@ -315,4 +317,9 @@ body {
 
 .grid-item p {
   margin-bottom: 0;
+}
+
+.link-style {
+  text-decoration: none;
+  color: black;
 }
