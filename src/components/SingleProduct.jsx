@@ -39,7 +39,7 @@ const SingleProduct = () => {
         src={product.image}
         alt={`photo of ${product.id}`}
       />
-      <p>Price: ${product.price}</p>
+      <p className="how-much-dat-is">${product.price}</p>
       <p>{product.description}</p>
       <div className="linky-container">
         <button className="linkybuttons" onClick={handleAddToCart}>
@@ -56,3 +56,4 @@ const SingleProduct = () => {
 };
 
 export default SingleProduct;
+

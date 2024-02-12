@@ -12,6 +12,12 @@ const Cart = () => {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+
+  // Function to format prices and handle changes
+  const formatPrice = (price) => {
+  return price.toFixed(2); // Round to 2 decimal places
+  };
+
   const shippingAndHandling = 10;
   const totalBeforeTax = totalPrice + shippingAndHandling;
   const taxRate = 0.1;
@@ -39,14 +45,14 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="cart-items">
             {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
+              <div key={item.id} className="cart-item-card">
                 <img
                   src={item.image}
                   alt={item.title}
                   style={{ maxHeight: "100px", maxWidth: "150px" }}
                 />
                 <p>{item.title}</p>
-                <p>Price: ${item.price}</p>
+                <p className="how-much-dat-is">${formatPrice(item.price)}</p>
                 <div>
                   <label>quantity:</label>
                   <input

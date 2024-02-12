@@ -1,3 +1,4 @@
+// experimental code
 import React, { useEffect, useState } from "react";
 import { fetchProducts, fetchCategories } from "../API";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +8,9 @@ import ScrollToTopIcon from "../images/uparrow.svg";
 export default function AllProducts({ resetCategoryFilter }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all"); // Set default category to 'all'
-  const [sortOrder, setSortOrder] = useState(null); // Default to null for no initial sorting
-  const [sortedProducts, setSortedProducts] = useState([]); // Separate state for sorted products
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortOrder, setSortOrder] = useState(null);
+  const [sortedProducts, setSortedProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function AllProducts({ resetCategoryFilter }) {
       try {
         const nextProducts = await fetchProducts();
         setProducts(nextProducts);
-        setSortedProducts(nextProducts); // Initialize sortedProducts with initial products
+        setSortedProducts(nextProducts);
 
         const categoryList = await fetchCategories();
         setCategories(categoryList);
@@ -32,13 +33,11 @@ export default function AllProducts({ resetCategoryFilter }) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    // Attach the click event to scroll to top
     const scrollIcon = document.getElementById("scroll-to-top-icon");
     if (scrollIcon) {
       scrollIcon.addEventListener("click", scrollToTop);
     }
 
-    // Cleanup event listener on component unmount
     return () => {
       if (scrollIcon) {
         scrollIcon.removeEventListener("click", scrollToTop);
@@ -54,12 +53,10 @@ export default function AllProducts({ resetCategoryFilter }) {
     setSelectedCategory(category);
 
     if (category === "all") {
-      // If 'all' is selected, set sortedProducts to all products
       setSortedProducts(products);
     } else {
-      // If a specific category is selected, set sortedProducts to filtered products
       const filteredProducts = products.filter(
-        (product) => product.category === category,
+        (product) => product.category === category
       );
       setSortedProducts(filteredProducts);
     }
@@ -68,7 +65,6 @@ export default function AllProducts({ resetCategoryFilter }) {
   const handleSortChange = (order) => {
     setSortOrder(order);
 
-    // Clone the sorted products array to avoid mutating the original state
     const sortedProductsClone = [...sortedProducts];
 
     if (order === "asc") {
@@ -81,7 +77,7 @@ export default function AllProducts({ resetCategoryFilter }) {
   };
 
   return (
-    <div>
+    <div className="product-grid-container">
       <div>
         <div className="category-select">
           <label htmlFor="category">Sort by Category:</label>
@@ -90,7 +86,6 @@ export default function AllProducts({ resetCategoryFilter }) {
             value={selectedCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
           >
-            {/* Add the default 'all' option... was not provided by this API */}
             <option value="all">all</option>
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -114,26 +109,29 @@ export default function AllProducts({ resetCategoryFilter }) {
         </div>
       </div>
 
-      {sortedProducts.map((product) => (
-        <div key={product.id}>
-          <h4>{product.title}</h4>
-          <img
-            className="productimg"
-            src={product.image}
-            alt={`photo of ${product.id}`}
-          />
-          <br />
-          <br />
-          <button
-            className="linkybuttons"
-            onClick={() => handleSeeDetails(product.id)}
-          >
-            See Details
-          </button>
-          <br />
-          <br />
-        </div>
-      ))}
+      <div className="product-grid">
+        {sortedProducts.map((product) => (
+          <div key={product.id} className="product-item">
+            <h4 className = "product-item-content">{product.title}</h4>
+            <img
+              className="productimg"
+              src={product.image}
+              alt={`photo of ${product.id}`}
+            />
+            <br />
+            <br />
+            <p className="how-much-dat-is">${product.price}</p>
+            <button
+              className="linkybuttons see-details-button"
+              onClick={() => handleSeeDetails(product.id)}
+            >
+              See Details
+            </button>
+            <br />
+            <br />
+          </div>
+        ))}
+      </div>
 
       <div
         id="scroll-to-top-icon"

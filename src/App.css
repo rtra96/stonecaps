@@ -10,27 +10,63 @@ body {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.product-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
 }
 
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
-.card {
-  padding: 2em;
+.product-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-overflow: ellipsis;
 }
 
-.read-the-docs {
-  color: #888;
+
+
+.product-item img {
+ width: 100%;
+ height: auto;
+ border-radius: 3px;
+
+}
+
+.how-much-dat-is {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #313131;
+}
+.see-details-button {
+  margin-top: auto;
+}
+
+.nilelogo {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .productimg {
@@ -48,41 +84,34 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: 30px;
+  margin-top: 20px;
 }
 
 @media (max-width: 443px) {
   .flavor-container {
-    padding: 20px; /* Adjust padding for smaller screens */
+    padding: 20px; 
   }
 }
 
-input {
-  margin-bottom: 10px;
+.punch-button,
+.linkybuttons, 
+.removeFromCartButton, 
+.place-order, .cart-buttons button {
+   background-color: #fc8282;
+   color: #fff;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
 }
 
 .login-form label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
-.form-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.punch-button {
-  background-color: #f5afaf;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.login-button:disabled {
+.punch-button:disabled, {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -95,10 +124,10 @@ input {
   display: flex;
   justify-content: center;
   gap: 20px;
-  
+  margin-top: 20px;
 }
 
-.cart-item {
+.cart-item-card {
   margin-top: 20px;
   align-items: center;
   border: 1px solid rgb(243, 237, 237);
@@ -112,8 +141,8 @@ input {
   display: grid;
   justify-content: center;
   width: auto;
+  margin-bottom: 10px;
 }
-
 
 .whole-dang-cart {
   display: grid;
@@ -128,27 +157,23 @@ input {
   
 }
 
-.linkybuttons, 
+ .linkybuttons, 
 .removeFromCartButton, 
-.place-order
- {
-  color: black;
-  border-radius: 3em;
+.place-order,
+.cart-buttons button{
+  margin-bottom: 10px
   ;
-}
-
+} 
 
 .linkybuttons:hover, 
-.place-order:hover{
-  background-color: antiquewhite;
+.place-order:hover,
+.punch-button:hover,
+.cart-buttons button:hover{
+  background-color: rgb(214, 185, 147);
 }
 
 .removeFromCartButton:hover {
   background-color: red;
-}
-
-.nilelogo {
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .order-summary-card {
@@ -165,7 +190,6 @@ input {
   justify-content: space-between;
   margin-bottom: 10px;
 }
-
 .order-summary-item span:first-child {
   font-weight: bold;
 }
@@ -196,14 +220,11 @@ input {
   align-content: center;
 }
 
-.user-information p {
-  margin-top: 65px;
-}
-
 .payment-information label {
   display: block;
   margin-bottom: 8px;
 }
+
 
 .payment-information input {
   width: calc(50%); 
@@ -229,19 +250,6 @@ input {
   border: 1px solid #ccc;
   padding: 15px;
   grid-column: span 2;
-}
-
-button {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #daa3c5;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 
 .centered-button {
@@ -271,5 +279,3 @@ button:hover {
   margin-bottom: 8px;
   border-radius: 3px;
 }
-
-
