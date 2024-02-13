@@ -82,6 +82,7 @@ const ShippingProfileComponent = () => {
           Add new shipping profile
         </div>
       )}
+          <p>under construction!</p>    
     </div>
   );
 };

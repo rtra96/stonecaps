@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchProductById, formatPrice } from "../API";
 import { useCart } from "./CartContext";
 import { Link } from "react-router-dom";
-import RelatedProducts from "./RelatedProducts"; // Import the RelatedProducts component
+import RelatedProducts from "./RelatedProducts"; 
 import "../App.css";
 
 const SingleProduct = () => {

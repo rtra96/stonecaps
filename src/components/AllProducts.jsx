@@ -1,9 +1,10 @@
-// experimental code
 import React, { useEffect, useState } from "react";
 import { fetchProducts, fetchCategories, formatPrice } from "../API";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import ScrollToTopIcon from "../images/uparrow.svg";
+import PriceIcon from "../images/price.svg";
+import CategoriesIcon from "../images/categories.svg";
 
 export default function AllProducts({ resetCategoryFilter }) {
   const [products, setProducts] = useState([]);
@@ -78,9 +79,12 @@ export default function AllProducts({ resetCategoryFilter }) {
 
   return (
     <div className="product-grid-container">
-      <div>
+      <div className="categories">
         <div className="category-select">
-          <label htmlFor="category">Sort by Category:</label>
+          <label htmlFor="category">Sort           
+          <img src={CategoriesIcon} 
+               alt="categorized view"
+               style={{ maxWidth: "30px", maxHeight: "30px" }} /></label>
           <select
             id="category"
             value={selectedCategory}
@@ -96,7 +100,10 @@ export default function AllProducts({ resetCategoryFilter }) {
         </div>
 
         <div className="sort-select">
-          <label htmlFor="sortOrder">Sort by Price:</label>
+          <label htmlFor="sortOrder">Sort 
+          <img src={PriceIcon} 
+               alt="Sort by Price"
+               style={{ maxWidth: "30px", maxHeight: "30px" }} /></label>
           <select
             id="sortOrder"
             value={sortOrder || ""}
