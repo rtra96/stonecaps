@@ -14,6 +14,7 @@ import OrderInformationForm from "./OrderInfo";
 import Confirmation from "./Confirmation";
 import Cart from "./Cart";
 import ShippingProfileComponent from "./EditUser";
+import ContactUs from "./Contact";
 
 
 const App = () => {
@@ -142,6 +143,7 @@ const App = () => {
               <Route path="/confirmation" element={<Confirmation />} />
               <Route path="/account" element={<Account />} />
               <Route path="/edit" element={<ShippingProfileComponent />} />
+              <Route path="/contact" element={<ContactUs />} />
             </Routes>
           </div>
         </BrowserRouter>

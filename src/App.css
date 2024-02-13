@@ -82,22 +82,35 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-.flavor-container {
+.flavor-container, .contact {
   max-width: 400px;
   margin: 0 auto;
-  padding: 80px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
   margin-top: 20px;
+}
+
+.flavor-container label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.flavor-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 @media (max-width: 443px) {
   .flavor-container {
-    padding: 20px; 
+    padding: 10px;
   }
 }
+
 
 .punch-button,
 .linkybuttons, 
@@ -305,6 +318,7 @@ body {
   background-color: #fff;
   text-decoration: none;
   transition: transform 0.3s ease;
+  border-radius: 10px;
 }
 
 .grid-item:hover {
@@ -354,4 +368,17 @@ body {
 
 .related-product-image:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+}
+
+.contact label{
+  display: block;
+  margin-bottom: 8px;
+}
+
+.contact input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

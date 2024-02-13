@@ -53,6 +53,10 @@ const SingleProduct = () => {
         </button>
       </div>
       
+      <div>
+        <p>You may also like..</p>
+      </div>
+      
       <RelatedProducts 
         currentProductId={id}
         currentCategory={product.category}

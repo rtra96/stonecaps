@@ -15,25 +15,19 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
       {error ? (
         <p>{error}</p>
       ) : loggedInUser ? (
-        // <div>
-        //   <p>
-        //     Name: {loggedInUser.name.firstname} {loggedInUser.name.lastname}
-        //   </p>
-        //   <p>Email: {loggedInUser.email}</p>
-        //   <p>Phone: {loggedInUser.phone}</p>
-        // </div>
     <div className="your-account-container">
       <h2>Account Dashboard</h2>
-      <div className="grid-container">
-        <div className="grid-item">
-          <Link to = "/edit" className="link-style" >
-            <img src={useredit} 
-             alt="edit user info"
-             style={{ maxWidth: "100px", maxHeight: "100px" }} />
-            <h3>Your Information</h3>
-            <p>Update your personal info</p>
-          </Link>
-        </div>
+        <h1>------------</h1>
+        <div className="grid-container">
+          <div className="grid-item">
+            <Link to = "/edit" className="link-style" >
+              <img src={useredit} 
+               alt="edit user info"
+               style={{ maxWidth: "100px", maxHeight: "100px" }} />
+              <h3>Your Information</h3>
+              <p>Update your personal info</p>
+            </Link>
+          </div>
         <div className="grid-item">
         <img src={orders} 
          alt="view order history"
@@ -49,11 +43,13 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
           <p>Add/edit payment information</p>
         </div>
         <div className="grid-item">
+          <Link to = "/contact" className="link-style" >
           <img src={contact} 
            alt="contact support"
            style={{ maxWidth: "100px", maxHeight: "100px" }} />
           <h3>Support</h3>
           <p>Contact us</p>
+          </Link>
         </div>
       </div>
     </div>
