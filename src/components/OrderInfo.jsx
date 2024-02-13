@@ -51,6 +51,8 @@ const OrderInformationForm = () => {
     if (isFormValid) {
       // Use navigate to navigate to the confirmation page
       navigate("/confirmation");
+      // Wipe the cart from localstorage to further simulate the order ACTUALLY being processed
+      clearCart();
     } else {
       // Display an error message or handle invalid form case
       alert("Please fill in all required fields before placing the order.");
