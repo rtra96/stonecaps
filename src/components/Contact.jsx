@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Github from "../images/github.svg";
+import Facebook from "../images/facebook.svg";
+import Linkedin from "../images/linkedin.svg";
+
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +31,7 @@ const ContactUs = () => {
   };
 
   return (
+    <div>
     <div className="contact">
       <h2>Contact Us</h2>
       <form onSubmit={handleSubmit}>
@@ -80,6 +85,25 @@ const ContactUs = () => {
 
         <button className="punch-button" type="submit">Submit</button>
       </form>
+    </div>
+    <footer>
+        <div className="social-icons">
+          {/* GitHub Icon */}
+          <a href="https://github.com/rtra96" target="_blank" rel="noopener noreferrer">
+            <img src={Github} alt="GitHub" width="32" height="32" />
+          </a>
+
+          {/* LinkedIn Icon */}
+          <a href="https://www.linkedin.com/in/rick-trahant/" target="_blank" rel="noopener noreferrer">
+            <img src={Linkedin} alt="LinkedIn" width="32" height="32" />
+          </a>
+
+          {/* Facebook Icon */}
+          <a href="https://www.facebook.com/profile.php?id=100003172443953" target="_blank" rel="noopener noreferrer">
+            <img src={Facebook} alt="Facebook" width="32" height="32" />
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };
