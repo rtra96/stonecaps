@@ -1,11 +1,11 @@
 body {
-  background-color: rgb(198, 199, 223);
+  /* background-color: rgb(198, 199, 223); */
+  background: linear-gradient(320deg, white, rgb(182, 241, 241));
 }
 
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
