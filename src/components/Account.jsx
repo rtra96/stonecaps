@@ -20,7 +20,7 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
       ) : loggedInUser ? (
     <div className="your-account-container">
       <h2>Account Dashboard</h2>
-        <h1>------------</h1>
+        <div className="borderline"></div>
         <div className="grid-container">
           <div className="grid-item">
             <Link to = "/edit" className="link-style" >
