@@ -27,8 +27,8 @@ const Account = ({ token, loggedInUser, setLoggedInUser, loading, error }) => {
               <img src={useredit} 
                alt="edit user info"
                style={{ maxWidth: "100px", maxHeight: "100px" }} />
-              <h3>Your Information</h3>
-              <p>Update your personal info</p>
+              <h3>Shipping Addresses</h3>
+              <p>Add or update your shipping information</p>
             </Link>
           </div>
         <div className="grid-item">

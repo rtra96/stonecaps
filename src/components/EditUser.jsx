@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-  
+//experimental code
+import React, { useState, useEffect } from "react";
 
 const ShippingProfileComponent = () => {
   const [editing, setEditing] = useState(false);
-  const [shippingProfiles, setShippingProfiles] = useState([
-    // Sample data fetched from the API
-    { id: 1, city: "Sample City", state: "CA", address: "123 Main St", zipCode: "12345" },
-  ]);
-
+  const [shippingProfiles, setShippingProfiles] = useState([]);
   const [formData, setFormData] = useState({
     city: "",
     state: "",
@@ -15,13 +11,38 @@ const ShippingProfileComponent = () => {
     zipCode: "",
   });
 
+  // Simulate fetching user data
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // Replace the URL with the actual endpoint for fetching user data
+        const response = await fetch("https://fakestoreapi.com/users");
+        const userData = await response.json();
+
+        // Extract shipping profiles from user data
+        const userShippingProfiles = userData.map((user) => ({
+          id: user.id,
+          city: user.address.city,
+          state: user.address.city, // Note: Change to user.address.state
+          address: user.address.street,
+          zipCode: user.address.zipcode,
+        }));
+
+        setShippingProfiles(userShippingProfiles);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleAddShippingProfile = () => {
-    // Validate the form fields before adding a new profile
     if (formData.city && formData.state && formData.address && formData.zipCode) {
       setShippingProfiles((prevProfiles) => [
         ...prevProfiles,
@@ -40,29 +61,42 @@ const ShippingProfileComponent = () => {
   };
 
   const handleEditShippingProfile = (id) => {
-    // Implement the logic to edit the shipping profile
-    console.log("Edit shipping profile with ID:", id);
+    // Find the corresponding shipping profile in user data
+    const editedProfile = shippingProfiles.find((profile) => profile.id === id);
+
+    if (editedProfile) {
+      setFormData({
+        city: editedProfile.city,
+        state: editedProfile.state,
+        address: editedProfile.address,
+        zipCode: editedProfile.zipCode,
+      });
+      setEditing(true);
+    } else {
+      console.error("Shipping profile not found for editing");
+    }
   };
 
   const handleDeleteShippingProfile = (id) => {
-    // Implement the logic to delete the shipping profile
-    console.log("Delete shipping profile with ID:", id);
+    const updatedProfiles = shippingProfiles.filter((profile) => profile.id !== id);
+    setShippingProfiles(updatedProfiles);
   };
 
   return (
-    <div>
+    <div className="edituserinfo">
       {shippingProfiles.map((profile) => (
-        <div key={profile.id} className="shipping-profile-card">
+        <div key={profile.id} className="shipping-container">
           <p>{`${profile.city}, ${profile.state}, ${profile.address}, ${profile.zipCode}`}</p>
           <div>
-            <button onClick={() => handleEditShippingProfile(profile.id)}>Edit</button>
-            <button onClick={() => handleDeleteShippingProfile(profile.id)}>Delete</button>
+            <button className="shippybuttons" onClick={() => handleEditShippingProfile(profile.id)}>Edit</button>
+            <button className="shippybuttons" onClick={() => handleDeleteShippingProfile(profile.id)}>Delete</button>
+            <button className="shippybuttons" onClick={() => handleDefaultShippingProfile(profile.id)}>Set as default</button>
           </div>
         </div>
       ))}
 
       {editing ? (
-        <div className="shipping-profile-form">
+        <div className="newship">
           <label>City: </label>
           <input type="text" name="city" value={formData.city} onChange={handleInputChange} />
 
@@ -75,17 +109,17 @@ const ShippingProfileComponent = () => {
           <label>Zip Code: </label>
           <input type="text" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
 
-          <button onClick={handleAddShippingProfile}>Add</button>
+          <button className="punch-button" onClick={handleAddShippingProfile}>Add</button>
         </div>
       ) : (
-        <div className="add-profile-card" onClick={() => setEditing(true)}>
+        <div className="add-ship" onClick={() => setEditing(true)}>
           Add new shipping profile
         </div>
       )}
-          <p>under construction!</p>    
     </div>
   );
 };
 
 export default ShippingProfileComponent;
+
 

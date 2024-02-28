@@ -1,8 +1,20 @@
 body {
-  /* background-color: rgb(198, 199, 223); */
-  background: linear-gradient(320deg, white, rgb(182, 241, 241));
+  position: relative;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(320deg, rgba(161, 232, 245, 0.7), rgba(182, 241, 241, 0.2));
+  background-size: cover;
+  background-repeat: repeat;
+  filter: blur(10px); 
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -347,7 +359,7 @@ body {
 .relativity {
   display: flex;
   justify-content: center;
-  background-color: rgb(198, 199, 223);
+  /* background-color: rgb(198, 199, 223); */
   border-radius: 2em;
   padding: 2px;
   border-color: rgb(198, 199, 223);
@@ -426,4 +438,44 @@ body {
   border-style:outset;
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+.edituserinfo {
+  display: grid;
+  justify-content: center;
+  max-width: auto;
+ }
+
+ .shipping-container, .add-ship {
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.shipping-container:hover, .add-ship:hover {
+  transform: scale(1.05);
+}
+
+.shippybuttons {
+  background-color: #fc8282;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+.newship {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  border-style:groove;
+  padding: 10px;
+  margin-top: 15px;
 }
