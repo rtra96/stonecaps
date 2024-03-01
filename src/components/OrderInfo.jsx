@@ -17,14 +17,14 @@ const OrderInformationForm = () => {
   const [billingZipCode, setBillingZipCode] = useState("");
 
   useEffect(() => {
-    // Set initial values based on user data when component mounts
-    if (user && user.address) {
-      setDeliveryAddress(
-        `${user.address.number || ""} ${user.address.street || ""}`,
-      );
-      setZipCode(user.address.zipcode || "");
-      setState("");
-      setCity(user.address.city || "");
+    // Set initial values based on user data when the component mounts
+    if (user && user.defaultShippingProfile) {
+      const { city, address, zipCode, state } = user.defaultShippingProfile;
+  
+      setDeliveryAddress(`${address || ""}`);
+      setZipCode(zipCode || "");
+      setState(state || "");
+      setCity(city || "");
     }
   }, [user]);
 
